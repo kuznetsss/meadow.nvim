@@ -1,27 +1,22 @@
 local wombat = {}
-wombat.Colors  = {
-    BlackDark = '#080808',
-    Black = '#242424',
-    BlackLight = '#303030',
-    BlackMoreLight = '#32322f',
+wombat.Colors = {
+    Black = {'#080808', '#242424', '#303030', '#32322f'},
 
-    GreyDark = '#554d4b',
-    Grey = '#c3c6ca',
+    Grey = {'#565656', '#444444',  '#c3c6ca'},
 
     White = '#e3e0d7',
 
-    BlueLight = '',
-    GreenLight = '#5FFF55',
-    Green = '#589200',
-    RedLight = '#ff5f55',
+    Blue = '#308dad',
+    Green = {'#5fff55', '#cae982'},
+    Red = '#ff5f55',
     Violet = '#d787ff',
-    YellowLight = '#E1F426',
-    Yellow = '#eae788',
+    Yellow = {'#e1f426', '#eae788', '#ffffd7' },
 
     DontKnow = '#00FFFB',
 
     None = 'none',
 
+    --[[
     TermColor0 = '#222222',
     TermColor1 = '#880000',
     TermColor2 = '#008800',
@@ -38,10 +33,12 @@ wombat.Colors  = {
     TermColor13 = '',
     TermColor14 = '',
     TermColor15 = '',
+    ]]--
 }
 
 local c = wombat.Colors
 
+--[[
 function wombat.set_terminal_colors()
     vim.g.terminal_color_0 = c.TermColor0
     vim.g.terminal_color_1 = c.TermColor1
@@ -60,73 +57,64 @@ function wombat.set_terminal_colors()
     vim.g.terminal_color_14 = c.TermColor14
     vim.g.terminal_color_15 = c.TermColor15
 end
+]]--
 
 wombat.nvim_colors = {
-    ColorColumn = { bg = c.BlackLight },
-    Conceal = { fg = c.White, bg = c.Grey },
+    ColorColumn = { bg = c.Black[3] },
+    Conceal = { fg = c.White, bg = c.Grey[1] },
     Cursor = { fg = c.None, bg = c.None, opt = 'reverse'},
     lCursor = { link = 'Cursor' },
     CursorIM = { link = 'Cursor' },
-    CursorColumn = { bg = c.BlackMoreLight },
+    CursorColumn = { bg = c.Black[4] },
     CursorLine = { link = 'CursorColumn' },
-    Directory = { bg = c.DontKnow },
-    DiffAdd = { bg = c.Green },
-    DiffChange = { bg = c.YellowLight },
-    DiffDelete = { bg = c.RedLight },
-    DiffText = { bg = c.DontKnow },
-    EndOfBuffer = { bg = c.BlackDark },
-    ErrorMsg = { bg = c.Black, fg = c.RedLight },
-    Normal = { fg = c.White, bg = c.Black },
+    Directory = { fg = c.Blue },
+    DiffAdd = { fg = c.Green[1], opt = 'bold' },
+    DiffChange = { fg = c.Yellow[1], opt = 'bold' },
+    DiffDelete = { fg = c.Red, opt = 'bold' },
+    DiffText = { fg = c.DontKnow, opt = 'bold' },
+    EndOfBuffer = { bg = c.Black[1] },
+    ErrorMsg = { fg = c.Red, bg = c.Black[1] },
+    Folded = { bg = c.Grey[1] },
+    FoldColumn = { bg = c.Grey[1] },
+    LineNr = { fg = c.Grey[1], bg = c.Black[1] },
+    CursorLineNr = { fg = c.Yellow[1], opt = 'bold' },
+    MatchParen	= { bg = c.Grey[1], opt = 'bold' },
+    ModeMsg = { },
+    MsgArea	= { link = 'Normal' },
+    MsgSeparator = { bg = c.Grey[2] },
+    MoreMsg	= { fg = c.Green[2] },
+    NonText	= { fg = c.Grey[1] },
+    Normal = { fg = c.White, bg = c.Black[2] },
+    NormalFloat	= { fg = c.White, bg = c.Grey[2] },
+    NormalNC = { link = 'Normal' },
+    Pmenu = { fg = c.Yellow[3], bg = c.Grey[2] },
+    PmenuSel = { fg = c.Black[1], bg = c.Green[2] },
+    PmenuSbar = { bg = c.Grey[1] },
+    PmenuThumb = { bg = c.White },
+    Question = { link = 'MoreMsg' },
+    Search = { fg = c.Violet, bg = c.Grey[1] },
+    IncSearch = { link = 'Search' },QuickFixLine = { opt = 'bold' },
+    SignColumn = { bg = c.Black[3] },
+    SpecialKey = { fg = c.Grey[3] },
+    SpellBad = { bg = c.Red, opt = 'underline'},
+    SpellCap = { link = 'SpellBad' },
+    SpellLocal = {},
+    SpellRare = {},
+    StatusLine = { fg = c.White, bg = c.Black[1] },
+    StatusLineNC = { fg = c.Grey[2], bg = c.Black[1] },
+    Substitute = { link = 'Search' },
+    TabLine = { fg = c.Green[2], bg = c.Grey[2] },
+    TabLineFill = { fg = c.Green[2], bg = c.Black[3]},
+    TabLineSel = { opt = 'bold' },
     TermCursor = { link = 'Cursor' },
     TermCursorNC = { link = 'Cursor' },
-    VertSplit = { fg = c.BlackDark, bg = c.BlackDark },
-    Visual = { fg = c.Grey, bg = c.GreyDark },
+    Title = { fg = c.Green[2], opt = 'bold' },
+    VertSplit = { fg = c.Black[1], bg = c.Black[1] },
+    Visual = { fg = c.Grey[1], bg = c.Green[1] },
     VisualNOS = { link = 'Visual' },
-    Search = { fg = c.Violet, bg = c.BlackMoreLight }
-
-    --[[
-VertSplit	
-Folded		
-FoldColumn	
-SignColumn	
-IncSearch	
-Substitute	
-LineNr		
-CursorLineNr	
-MatchParen	
-ModeMsg		
-MsgArea		
-MsgSeparator	
-MoreMsg		
-NonText		
-Normal		
-NormalFloat	
-NormalNC	
-Pmenu		
-PmenuSel	
-PmenuSbar	
-PmenuThumb	
-Question	
-QuickFixLine	
-Search		
-SpecialKey	
-SpellBad	
-SpellCap	
-SpellLocal	
-SpellRare	
-StatusLine	
-StatusLineNC	
-TabLine		
-TabLineFill	
-TabLineSel	
-Title		
-Visual		
-VisualNOS	
-WarningMsg	
-Whitespace	
-WildMenu	
-]]--
-
+    WarningMsg = { bg = c.Yellow[1] },
+    Whitespace = { fg = c.Blue, bg = c.Grey[1] },
+    WildMenu = { link = 'PmenuSel' }
 }
 
 function wombat.apply_colors(colors)
@@ -155,7 +143,7 @@ function wombat.apply_colorscheme()
     vim.o.background = 'dark'
     vim.o.termguicolors = true
     vim.g.colors_name = 'wombat-nvim'
-    wombat.set_terminal_colors()
+    --wombat.set_terminal_colors()
     wombat.apply_colors(wombat.nvim_colors)
 end
 
