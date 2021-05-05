@@ -2,15 +2,16 @@ local wombat = {}
 wombat.Colors = {
     Black = {'#080808', '#242424', '#303030', '#32322f'},
 
-    Grey = {'#565656', '#444444',  '#c3c6ca'},
+    Grey = {'#444444', '#565656', '#c3c6ca'},
 
     White = '#e3e0d7',
 
-    Blue = '#308dad',
-    Green = {'#5fff55', '#cae982'},
-    Red = '#ff5f55',
+    Blue = {'#4281A4', '#48A9A6', '#308dad'},
+    Green = {'#B1C456', '#71bb3e'},
+    Red = {'#ff5f55', '#e5786d'},
     Violet = '#d787ff',
-    Yellow = {'#e1f426', '#eae788', '#ffffd7' },
+    Yellow = {'#e1f426', '#f1d477', '#ffffd7' },
+    Orange = '#E68D1C',
 
     DontKnow = '#00FFFB',
 
@@ -61,60 +62,117 @@ end
 
 wombat.nvim_colors = {
     ColorColumn = { bg = c.Black[3] },
-    Conceal = { fg = c.White, bg = c.Grey[1] },
+    Conceal = { fg = c.White, bg = c.Grey[2] },
     Cursor = { fg = c.None, bg = c.None, opt = 'reverse'},
     lCursor = { link = 'Cursor' },
     CursorIM = { link = 'Cursor' },
     CursorColumn = { bg = c.Black[4] },
     CursorLine = { link = 'CursorColumn' },
-    Directory = { fg = c.Blue },
+    Directory = { fg = c.Blue[1] },
     DiffAdd = { fg = c.Green[1], opt = 'bold' },
     DiffChange = { fg = c.Yellow[1], opt = 'bold' },
-    DiffDelete = { fg = c.Red, opt = 'bold' },
+    DiffDelete = { fg = c.Red[2], opt = 'bold' },
     DiffText = { fg = c.DontKnow, opt = 'bold' },
     EndOfBuffer = { bg = c.Black[1] },
-    ErrorMsg = { fg = c.Red, bg = c.Black[1] },
-    Folded = { bg = c.Grey[1] },
-    FoldColumn = { bg = c.Grey[1] },
-    LineNr = { fg = c.Grey[1], bg = c.Black[1] },
+    ErrorMsg = { fg = c.Red[1], bg = c.Black[1] },
+    Folded = { bg = c.Grey[2] },
+    FoldColumn = { bg = c.Grey[2] },
+    LineNr = { fg = c.Grey[2], bg = c.Black[1] },
     CursorLineNr = { fg = c.Yellow[1], opt = 'bold' },
-    MatchParen	= { bg = c.Grey[1], opt = 'bold' },
+    MatchParen	= { bg = c.Grey[2], opt = 'bold' },
     ModeMsg = { },
     MsgArea	= { link = 'Normal' },
-    MsgSeparator = { bg = c.Grey[2] },
+    MsgSeparator = { bg = c.Grey[1] },
     MoreMsg	= { fg = c.Green[2] },
-    NonText	= { fg = c.Grey[1] },
+    NonText	= { fg = c.Grey[2] },
     Normal = { fg = c.White, bg = c.Black[2] },
-    NormalFloat	= { fg = c.White, bg = c.Grey[2] },
+    NormalFloat	= { fg = c.White, bg = c.Grey[1] },
     NormalNC = { link = 'Normal' },
-    Pmenu = { fg = c.Yellow[3], bg = c.Grey[2] },
+    Pmenu = { fg = c.Yellow[3], bg = c.Grey[1] },
     PmenuSel = { fg = c.Black[1], bg = c.Green[2] },
-    PmenuSbar = { bg = c.Grey[1] },
+    PmenuSbar = { bg = c.Grey[2] },
     PmenuThumb = { bg = c.White },
     Question = { link = 'MoreMsg' },
-    Search = { fg = c.Violet, bg = c.Grey[1] },
+    Search = { fg = c.Violet, bg = c.Grey[2] },
     IncSearch = { link = 'Search' },QuickFixLine = { opt = 'bold' },
     SignColumn = { bg = c.Black[3] },
     SpecialKey = { fg = c.Grey[3] },
-    SpellBad = { bg = c.Red, opt = 'underline'},
+    SpellBad = { bg = c.Red[2], opt = 'underline'},
     SpellCap = { link = 'SpellBad' },
     SpellLocal = {},
     SpellRare = {},
     StatusLine = { fg = c.White, bg = c.Black[1] },
-    StatusLineNC = { fg = c.Grey[2], bg = c.Black[1] },
+    StatusLineNC = { fg = c.Grey[1], bg = c.Black[1] },
     Substitute = { link = 'Search' },
-    TabLine = { fg = c.Green[2], bg = c.Grey[2] },
+    TabLine = { fg = c.Green[2], bg = c.Grey[1] },
     TabLineFill = { fg = c.Green[2], bg = c.Black[3]},
     TabLineSel = { opt = 'bold' },
     TermCursor = { link = 'Cursor' },
     TermCursorNC = { link = 'Cursor' },
-    Title = { fg = c.Green[2], opt = 'bold' },
     VertSplit = { fg = c.Black[1], bg = c.Black[1] },
-    Visual = { fg = c.Grey[1], bg = c.Green[1] },
+    Visual = { fg = c.Grey[2], bg = c.Green[1] },
     VisualNOS = { link = 'Visual' },
     WarningMsg = { bg = c.Yellow[1] },
-    Whitespace = { fg = c.Blue, bg = c.Grey[1] },
-    WildMenu = { link = 'PmenuSel' }
+    Whitespace = { fg = c.Blue[2], bg = c.Grey[2] },
+    WildMenu = { link = 'PmenuSel' },
+
+
+    Debug = {},
+    debugBreakpoint = { fg = c.Red[2] },
+
+    Boolean = { fg = c.Red[2] },
+    Number = { fg = c.Red[2] },
+    Float = { link = 'Number' },
+    String = { fg = c.Green[1], opt = 'italic'},
+    Character = { link = 'String' },
+    Constant = { fg = c.Red[1] },
+    PreProc = { fg = c.Red[2] },
+    Type = { fg = c.Green[2] },
+
+    TSAnnotation = { fg = c.Yellow[3] },
+    TSNamespace = { fg = c.Yellow[3] },
+    Function = { fg = c.Green[1], opt = 'bold' },
+    Identifier = { fg = c.Yellow[2] },
+    --TSField = {}, -- Identifier
+    --TSParameter = {}, -- Identifier
+    TSParameterReference = {fg = c.Green[2], opt = 'italic' },
+    TSVariable = { link = 'Normal' },
+
+    --TSPunctBracket = {}, -- Delimiter
+    --TSStringEscape = {}, -- SpecialChar
+    Special = { fg = c.Yellow[3] },
+    SpecialChar = { fg = c.Orange },
+    Delimiter = { fg = c.Yellow[2] },
+    Operator = { fg = c.Blue[2] },
+
+    Keyword = { fg = c.Blue[2] },
+    Include = { fg = c.Blue[1] },
+    Conditional = { fg = c.Blue[2] },
+    PreCondit = { fg = c.Blue[2] },
+    Repeat = { fg = c.Blue[2] }, -- loops related
+    Define = { fg = c.Blue[1] },
+    Macro = { fg = c.Blue[1] },
+    Statement = { fg = c.Blue[1] },
+
+    TSURI = { fg = c.Blue[1], opt = 'underline' },
+    Typedef = { fg = c.Blue[3] },
+    Exception = { fg = c.Yellow[3] },
+    Error = { fg = c.Red[1] },
+    StorageClass = { fg = c.Yellow[3] },
+    Tag = { fg = c.Orange },
+    Label = { fg = c.Orange },
+    Structure = { fg = c.Green[1] },
+    Title = { fg = c.Green[2], opt = 'bold' },
+
+    Comment = { fg = c.Grey[3] },
+    SpecialComment = { fg = c.Grey[1] },
+    Todo = { fg = c.Yellow[1] },
+    Ignore = { fg = c.Grey[1] },
+    Underlined = { opt = 'underline' },
+}
+
+wombat.TreeSitterColors = {
+    
 }
 
 function wombat.apply_colors(colors)
@@ -135,7 +193,7 @@ function wombat.apply_colors(colors)
     end
 end
 
-function wombat.apply_colorscheme()
+function wombat.setup()
     vim.api.nvim_command('highlight clear')
     if vim.fn.exists('syntax_on') then
         vim.api.nvim_command('syntax reset')
@@ -146,7 +204,5 @@ function wombat.apply_colorscheme()
     --wombat.set_terminal_colors()
     wombat.apply_colors(wombat.nvim_colors)
 end
-
-wombat.apply_colorscheme()
 
 return wombat

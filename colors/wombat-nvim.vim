@@ -1,1 +1,1 @@
-lua require 'wombat-nvim'
+lua require'wombat-nvim'.setup()
