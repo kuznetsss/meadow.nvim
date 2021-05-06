@@ -1,43 +1,88 @@
 local wombat = {}
-wombat.Colors = {
-    Black = {'#080808', '#242424', '#303030', '#32322f'},
 
-    Grey = {'#444444', '#565656', '#c3c6ca'},
+wombat.COLOR_VALUE = 75
+wombat.COLOR_SATURATION = 60
 
-    White = '#e3e0d7',
+local to_int = function(f)
+    return math.floor(f + 0.5)
+end
 
-    Blue = {'#4281A4', '#48A9A6', '#308dad'},
-    Green = {'#B1C456', '#71bb3e'},
-    Red = {'#ff5f55', '#e5786d'},
-    Violet = '#d787ff',
-    Yellow = {'#e1f426', '#f1d477', '#ffffd7' },
-    Orange = '#E68D1C',
+-- Hue should be in [0, 360]
+-- Saturation and value should be in [0, 100]
+wombat.hsv_to_rgb = function(hsv)
+    local value = hsv[3] * 255 / 100
+    local hue = hsv[1]
+    local saturation = hsv[2] / 100
 
-    DontKnow = '#00FFFB',
+    local c = value * saturation
+    local h = hue / 60
+    local x = c * (1 - math.abs(math.fmod(h, 2) - 1))
 
-    None = 'none',
+    local result = {0, 0, 0}
+    if h >= 0 and h <= 1 then
+        result = {c, x, 0}
+    elseif h > 1 and h <= 2 then
+        result = {x, c, 0}
+    elseif h > 2 and h <= 3 then
+        result = { 0, c, x}
+    elseif h > 3 and h <= 4 then
+        result = {0, x, c}
+    elseif h > 4 and h <= 5 then
+        result = {x, 0, c}
+    elseif h > 5 and h <= 6 then
+        result = {c, 0, x}
+    end
+    local m = value - c
+    for i = 1, #result do
+        result[i] = to_int(result[i] + m)
+    end
+    return result
+end
 
-    --[[
-    TermColor0 = '#222222',
-    TermColor1 = '#880000',
-    TermColor2 = '#008800',
-    TermColor3 = '',
-    TermColor4 = '',
-    TermColor5 = '',
-    TermColor6 = '',
-    TermColor7 = '',
-    TermColor8 = '',
-    TermColor9 = '',
-    TermColor10 = '',
-    TermColor11 = '',
-    TermColor12 = '',
-    TermColor13 = '',
-    TermColor14 = '',
-    TermColor15 = '',
-    ]]--
+wombat.rgb_to_hex = function(rgb)
+    local string_to_format = '#'
+    for _, v in ipairs(rgb) do
+        if v < 16 then
+            string_to_format = string_to_format .. '0'
+        end
+        string_to_format = string_to_format .. '%x'
+    end
+    return string.format(string_to_format, rgb[1], rgb[2], rgb[3])
+end
+
+wombat.hsv_to_rgb_hex = function(hsv)
+    if not hsv then
+        return nil
+    end
+    if #hsv == 1 then
+        table.insert(hsv, wombat.COLOR_SATURATION)
+    end
+    if #hsv == 2 then
+        table.insert(hsv, wombat.COLOR_VALUE)
+    end
+    return wombat.rgb_to_hex(wombat.hsv_to_rgb(hsv))
+end
+
+
+wombat.ColorsHsv = {
+    Black = { {0, 0, 3}, {0, 0, 14}, {0, 0, 19}, {0, 0, 24} },
+    Grey =  { {0, 0, 26}, {0, 0, 34}, {0, 0, 44} },
+    White = {0, 0, 75},
+
+    Blue = { {202}, {178}, {195} },
+    Green = { {101}, {90} },
+    Red = { {3}, {5} },
+    Violet = { 280},
+    Yellow = { {65, }, {46, }, {60, } },
+    Orange = { 34, },
+    Pink = { 326, },
+
+    DontKnow = { 179, 100, 100 },
 }
 
-local c = wombat.Colors
+
+
+local c = wombat.ColorsHsv
 
 --[[
 function wombat.set_terminal_colors()
@@ -63,7 +108,7 @@ end
 wombat.nvim_colors = {
     ColorColumn = { bg = c.Black[3] },
     Conceal = { fg = c.White, bg = c.Grey[2] },
-    Cursor = { fg = c.None, bg = c.None, opt = 'reverse'},
+    Cursor = { opt = 'reverse' },
     lCursor = { link = 'Cursor' },
     CursorIM = { link = 'Cursor' },
     CursorColumn = { bg = c.Black[4] },
@@ -126,17 +171,16 @@ wombat.nvim_colors = {
     String = { fg = c.Green[1], opt = 'italic'},
     Character = { link = 'String' },
     Constant = { fg = c.Red[1] },
-    PreProc = { fg = c.Red[2] },
-    Type = { fg = c.Green[2] },
 
-    TSAnnotation = { fg = c.Yellow[3] },
-    TSNamespace = { fg = c.Yellow[3] },
+    TSVariable = { link = 'Normal' },
+    TSNamespace = { fg = c.Red[1] },
     Function = { fg = c.Green[1], opt = 'bold' },
     Identifier = { fg = c.Yellow[2] },
     --TSField = {}, -- Identifier
     --TSParameter = {}, -- Identifier
+    Type = { fg = c.Green[2] },
+    TSAnnotation = { fg = c.Yellow[3] },
     TSParameterReference = {fg = c.Green[2], opt = 'italic' },
-    TSVariable = { link = 'Normal' },
 
     --TSPunctBracket = {}, -- Delimiter
     --TSStringEscape = {}, -- SpecialChar
@@ -153,9 +197,10 @@ wombat.nvim_colors = {
     Define = { fg = c.Blue[1] },
     Macro = { fg = c.Blue[1] },
     Statement = { fg = c.Blue[1] },
+    PreProc = { fg = c.Red[2] },
+    Typedef = { fg = c.Blue[3] },
 
     TSURI = { fg = c.Blue[1], opt = 'underline' },
-    Typedef = { fg = c.Blue[3] },
     Exception = { fg = c.Yellow[3] },
     Error = { fg = c.Red[1] },
     StorageClass = { fg = c.Yellow[3] },
@@ -164,7 +209,7 @@ wombat.nvim_colors = {
     Structure = { fg = c.Green[1] },
     Title = { fg = c.Green[2], opt = 'bold' },
 
-    Comment = { fg = c.Grey[3] },
+    Comment = { fg = c.Grey[2] },
     SpecialComment = { fg = c.Grey[1] },
     Todo = { fg = c.Yellow[1] },
     Ignore = { fg = c.Grey[1] },
@@ -172,7 +217,6 @@ wombat.nvim_colors = {
 }
 
 wombat.TreeSitterColors = {
-    
 }
 
 function wombat.apply_colors(colors)
@@ -181,9 +225,9 @@ function wombat.apply_colors(colors)
         if options.link then
             cmd = 'hi! link ' .. group .. ' ' .. options.link
         else
-            local fg = options.fg or c.None
-            local bg = options.bg or c.None
-            local opt = options.opt or c.None
+            local fg = wombat.hsv_to_rgb_hex(options.fg) or 'none'
+            local bg = wombat.hsv_to_rgb_hex(options.bg) or 'none'
+            local opt = options.opt or 'none'
             cmd = 'hi ' .. group ..
                 ' guifg= ' .. fg ..
                 ' guibg=' .. bg ..
