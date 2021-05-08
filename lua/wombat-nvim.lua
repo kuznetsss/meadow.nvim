@@ -1,7 +1,7 @@
 local wombat = {}
 
-wombat.COLOR_VALUE = 75
 wombat.COLOR_SATURATION = 75
+wombat.COLOR_VALUE = 75
 
 local to_int = function(f)
     return math.floor(f + 0.5)
@@ -71,25 +71,23 @@ end
 
 wombat.Colors = {
     Black = { {0, 0, 3}, {0, 0, 14}, {0, 0, 19}, {0, 0, 24} },
-    GreyBg = { {0, 0, 26}, {0, 0, 34}, {0, 0, 44} },
-    Grey =  { {0, 0, 50} },
+    GreyBg = { {0, 0, 26}, {0, 0, 34} },
+    Grey =  { {0, 0, 55} },
     White = { {0, 0} },
 
-    Blue = { {202}, {178}, {195} },
-    Green = { {110}, {87} },
+    Blue = { {202}, {195}, {178} },
+    Green = { {115}, {87} },
     Red = { {0}, {12} },
     Violet = { {280} },
-    Yellow = { {65}, {46}, {60} },
-    Orange = { {27} },
+    Yellow = { {65}, {46} },
+    Orange = { {35} },
     Pink = { {326} },
-
-    DontKnow = { {179, 100, 100} },
 }
 
 wombat.StaticColors = { Black = true, GreyBg = true }
 
-local function preprocess_colors(colors_to_process)
-    for name, colors in pairs(colors_to_process) do
+local function preprocess_colors()
+    for name, colors in pairs(wombat.Colors) do
         for _, hsv in pairs(colors) do
             if wombat.StaticColors[name] then
                 hsv.hue = hsv[1]
@@ -107,29 +105,9 @@ local function preprocess_colors(colors_to_process)
         end
     end
 end
+preprocess_colors()
 
 local c = wombat.Colors
-
---[[
-function wombat.set_terminal_colors()
-    vim.g.terminal_color_0 = c.TermColor0
-    vim.g.terminal_color_1 = c.TermColor1
-    vim.g.terminal_color_2 = c.TermColor2
-    vim.g.terminal_color_3 = c.TermColor3
-    vim.g.terminal_color_4 = c.TermColor4
-    vim.g.terminal_color_5 = c.TermColor5
-    vim.g.terminal_color_6 = c.TermColor6
-    vim.g.terminal_color_7 = c.TermColor7
-    vim.g.terminal_color_8 = c.TermColor8
-    vim.g.terminal_color_9 = c.TermColor9
-    vim.g.terminal_color_10 = c.TermColor10
-    vim.g.terminal_color_11 = c.TermColor11
-    vim.g.terminal_color_12 = c.TermColor12
-    vim.g.terminal_color_13 = c.TermColor13
-    vim.g.terminal_color_14 = c.TermColor14
-    vim.g.terminal_color_15 = c.TermColor15
-end
-]]--
 
 wombat.nvim_colors = {
     ColorColumn = { bg = c.Black[3] },
@@ -143,15 +121,15 @@ wombat.nvim_colors = {
     DiffAdd = { fg = c.Green[1], opt = 'bold' },
     DiffChange = { fg = c.Yellow[1], opt = 'bold' },
     DiffDelete = { fg = c.Red[2], opt = 'bold' },
-    DiffText = { fg = c.DontKnow[1], opt = 'bold' },
+    DiffText = { fg = c.Yellow[1], opt = 'bold' },
     EndOfBuffer = { bg = c.Black[1] },
     ErrorMsg = { fg = c.Red[1], bg = c.Black[1] },
     Folded = { bg = c.GreyBg[2] },
     FoldColumn = { bg = c.GreyBg[2] },
     LineNr = { fg = c.Grey[1], bg = c.Black[1] },
     CursorLineNr = { fg = c.Yellow[1], opt = 'bold' },
-    MatchParen	= { bg = c.GreyBg[2], opt = 'bold' },
-    ModeMsg = { },
+    MatchParen	= { bg = c.Yellow[1], opt = 'bold' },
+    ModeMsg = { link = 'Normal' },
     MsgArea	= { link = 'Normal' },
     MsgSeparator = { bg = c.GreyBg[1] },
     MoreMsg	= { fg = c.Green[2] },
@@ -164,15 +142,15 @@ wombat.nvim_colors = {
     PmenuSbar = { bg = c.GreyBg[2] },
     PmenuThumb = { bg = c.White[1] },
     Question = { link = 'MoreMsg' },
-    Search = { fg = c.Violet[1], bg = c.GreyBg[2] },
+    Search = { bg = c.Violet[1] },
     IncSearch = { link = 'Search' },
     QuickFixLine = { opt = 'bold' },
     SignColumn = { bg = c.Black[3] },
     SpecialKey = { fg = c.Grey[1] },
     SpellBad = { bg = c.Red[2], opt = 'underline'},
     SpellCap = { link = 'SpellBad' },
-    SpellLocal = {},
-    SpellRare = {},
+    SpellLocal = { link = 'SpellBad' },
+    SpellRare = { link = 'SpellBad' },
     StatusLine = { fg = c.White[1], bg = c.Black[1] },
     StatusLineNC = { fg = c.GreyBg[1], bg = c.Black[1] },
     Substitute = { link = 'Search' },
@@ -182,20 +160,20 @@ wombat.nvim_colors = {
     TermCursor = { link = 'Cursor' },
     TermCursorNC = { link = 'Cursor' },
     VertSplit = { fg = c.Black[1], bg = c.Black[1] },
-    Visual = {  bg = c.Violet[1] },
+    Visual = { bg = c.Violet[1] },
     VisualNOS = { link = 'Visual' },
     WarningMsg = { bg = c.Yellow[1] },
-    Whitespace = { fg = c.Blue[2], bg = c.GreyBg[2] },
+    Whitespace = { fg = c.Blue[3], bg = c.GreyBg[2] },
     WildMenu = { link = 'PmenuSel' },
 
 
-    Debug = {},
+    Debug = { bg = c.Red[2] },
     debugBreakpoint = { fg = c.Red[2] },
 
     Boolean = { fg = c.Red[2] },
     Number = { fg = c.Red[2] },
     Float = { link = 'Number' },
-    String = { fg = c.Green[1] }, --, opt = 'italic'},
+    String = { fg = c.Green[1], opt = 'italic' },
     Character = { link = 'String' },
     Constant = { fg = c.Red[1] },
 
@@ -207,31 +185,31 @@ wombat.nvim_colors = {
     --TSParameter = {}, -- Identifier
     -- TSProperty = {}. -- Identifier
     Type = { fg = c.Green[2] },
-    TSAnnotation = { fg = c.Yellow[3] },
+    TSAnnotation = { fg = c.Yellow[1] },
     TSParameterReference = {fg = c.Green[2], opt = 'italic' },
 
     --TSPunctBracket = {}, -- Delimiter
     Delimiter = { fg = c.Yellow[2] },
-    Special = { fg = c.Yellow[3] },
+    Special = { fg = c.Yellow[1] },
     --TSStringEscape = {}, -- SpecialChar
     SpecialChar = { fg = c.Orange[1] },
-    Operator = { fg = c.Blue[2] },
+    Operator = { fg = c.Blue[3] },
 
-    Keyword = { fg = c.Blue[1] },
+    Keyword = { fg = c.Blue[3] },
     Include = { fg = c.Blue[1] },
-    Conditional = { fg = c.Blue[2] },
-    PreCondit = { fg = c.Blue[2] },
-    Repeat = { fg = c.Blue[2] }, -- loops related
+    Conditional = { fg = c.Blue[3] },
+    PreCondit = { fg = c.Blue[3] },
+    Repeat = { fg = c.Blue[3] }, -- loops related
     Define = { fg = c.Blue[1] },
     Macro = { fg = c.Blue[1] },
     Statement = { fg = c.Blue[1] },
     PreProc = { fg = c.Red[2] },
-    Typedef = { fg = c.Blue[3] },
+    Typedef = { fg = c.Blue[2] },
 
     TSURI = { fg = c.Blue[1], opt = 'underline' },
-    Exception = { fg = c.Yellow[3] },
+    Exception = { fg = c.Yellow[1] },
     Error = { fg = c.Red[1] },
-    StorageClass = { fg = c.Yellow[3] },
+    StorageClass = { fg = c.Yellow[1] },
     Tag = { fg = c.Orange[1] },
     Label = { fg = c.Orange[1] },
     Structure = { fg = c.Green[1] },
@@ -241,11 +219,7 @@ wombat.nvim_colors = {
     SpecialComment = { fg = c.Grey[1] },
     Todo = { fg = c.Yellow[1] },
     Ignore = { fg = c.Grey[1] },
-    Underlined = { opt = 'underline' },
-}
-
-
-wombat.TreeSitterColors = {
+    Underlined = { fg = c.Blue[1], opt = 'underline' },
 }
 
 function wombat.apply_colors(colors)
@@ -277,7 +251,6 @@ function wombat.setup()
     vim.o.termguicolors = true
     vim.g.colors_name = 'wombat-nvim'
 
-    preprocess_colors(wombat.Colors)
     wombat.apply_colors(wombat.nvim_colors)
 end
 
