@@ -109,7 +109,7 @@ preprocess_colors()
 
 local c = wombat.Colors
 
-wombat.nvim_colors = {
+wombat.NvimColors = {
     ColorColumn = { bg = c.Black[3] },
     Conceal = { fg = c.White[1], bg = c.GreyBg[2] },
     Cursor = { opt = 'reverse' },
@@ -222,6 +222,12 @@ wombat.nvim_colors = {
     Underlined = { fg = c.Blue[1], opt = 'underline' },
 }
 
+wombat.IndentBlankLineColors = {
+    IndentBlanklineChar = { fg = c.Grey[1], opt = 'nocombine' },
+    IndentBlanklineSpaceChar = { link = 'IndentBlanklineChar' },
+    IndentBlanklineSpaceCharBlankline = { link = 'IndentBlanklineChar' }
+}
+
 function wombat.apply_colors(colors)
     for group, options in pairs(colors) do
         local cmd = ''
@@ -233,7 +239,7 @@ function wombat.apply_colors(colors)
             local bg =
                 wombat.hsv_to_rgb_hex(options.bg, wombat.ColorType.bg) or 'none'
             local opt = options.opt or 'none'
-            cmd = 'hi ' .. group ..
+            cmd = 'hi! ' .. group ..
                 ' guifg= ' .. fg ..
                 ' guibg=' .. bg ..
                 ' gui=' .. opt
@@ -251,7 +257,8 @@ function wombat.setup()
     vim.o.termguicolors = true
     vim.g.colors_name = 'wombat-nvim'
 
-    wombat.apply_colors(wombat.nvim_colors)
+    wombat.apply_colors(wombat.NvimColors)
+    wombat.apply_colors(wombat.IndentBlankLineColors)
 end
 
 return wombat
