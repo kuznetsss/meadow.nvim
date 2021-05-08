@@ -1,7 +1,7 @@
 local wombat = {}
 
 wombat.COLOR_VALUE = 75
-wombat.COLOR_SATURATION = 60
+wombat.COLOR_SATURATION = 75
 
 local to_int = function(f)
     return math.floor(f + 0.5)
@@ -10,9 +10,9 @@ end
 -- Hue should be in [0, 360]
 -- Saturation and value should be in [0, 100]
 wombat.hsv_to_rgb = function(hsv)
-    local value = hsv[3] * 255 / 100
     local hue = hsv[1]
     local saturation = hsv[2] / 100
+    local value = hsv[3] * 255 / 100
 
     local c = value * saturation
     local h = hue / 60
@@ -50,39 +50,65 @@ wombat.rgb_to_hex = function(rgb)
     return string.format(string_to_format, rgb[1], rgb[2], rgb[3])
 end
 
-wombat.hsv_to_rgb_hex = function(hsv)
+wombat.ColorType = { fg = 1, bg = 2 }
+
+wombat.hsv_to_rgb_hex = function(hsv, type)
     if not hsv then
         return nil
     end
-    if #hsv == 1 then
-        table.insert(hsv, wombat.COLOR_SATURATION)
+    type = type or wombat.ColorType.fg
+    local color_value
+    if type == wombat.ColorType.fg then
+        color_value = hsv.value_fg
+    elseif type == wombat.ColorType.bg then
+        color_value = hsv.value_bg
+    else
+        assert(false, 'Wrong type value ' .. type)
     end
-    if #hsv == 2 then
-        table.insert(hsv, wombat.COLOR_VALUE)
-    end
-    return wombat.rgb_to_hex(wombat.hsv_to_rgb(hsv))
+    local rgb = wombat.hsv_to_rgb({hsv.hue, hsv.saturation, color_value})
+    return wombat.rgb_to_hex(rgb)
 end
 
-
-wombat.ColorsHsv = {
+wombat.Colors = {
     Black = { {0, 0, 3}, {0, 0, 14}, {0, 0, 19}, {0, 0, 24} },
-    Grey =  { {0, 0, 26}, {0, 0, 34}, {0, 0, 44} },
-    White = {0, 0, 75},
+    GreyBg = { {0, 0, 26}, {0, 0, 34}, {0, 0, 44} },
+    Grey =  { {0, 0, 50} },
+    White = { {0, 0} },
 
     Blue = { {202}, {178}, {195} },
-    Green = { {101}, {90} },
-    Red = { {3}, {5} },
-    Violet = { 280},
-    Yellow = { {65, }, {46, }, {60, } },
-    Orange = { 34, },
-    Pink = { 326, },
+    Green = { {110}, {87} },
+    Red = { {0}, {12} },
+    Violet = { {280} },
+    Yellow = { {65}, {46}, {60} },
+    Orange = { {27} },
+    Pink = { {326} },
 
-    DontKnow = { 179, 100, 100 },
+    DontKnow = { {179, 100, 100} },
 }
 
+wombat.StaticColors = { Black = true, GreyBg = true }
 
+local function preprocess_colors(colors_to_process)
+    for name, colors in pairs(colors_to_process) do
+        for _, hsv in pairs(colors) do
+            if wombat.StaticColors[name] then
+                hsv.hue = hsv[1]
+                hsv.saturation = hsv[2]
+                hsv.value_fg = hsv[3]
+                hsv.value_bg = hsv[3]
+            else
+                hsv.hue = hsv[1]
+                hsv.saturation = hsv[2] or wombat.COLOR_SATURATION
+                hsv.value_fg = hsv[3] and
+                    hsv[3] * wombat.COLOR_VALUE / 100 or
+                    wombat.COLOR_VALUE
+                hsv.value_bg = hsv[3] or wombat.COLOR_VALUE / 2
+            end
+        end
+    end
+end
 
-local c = wombat.ColorsHsv
+local c = wombat.Colors
 
 --[[
 function wombat.set_terminal_colors()
@@ -107,7 +133,7 @@ end
 
 wombat.nvim_colors = {
     ColorColumn = { bg = c.Black[3] },
-    Conceal = { fg = c.White, bg = c.Grey[2] },
+    Conceal = { fg = c.White[1], bg = c.GreyBg[2] },
     Cursor = { opt = 'reverse' },
     lCursor = { link = 'Cursor' },
     CursorIM = { link = 'Cursor' },
@@ -117,48 +143,49 @@ wombat.nvim_colors = {
     DiffAdd = { fg = c.Green[1], opt = 'bold' },
     DiffChange = { fg = c.Yellow[1], opt = 'bold' },
     DiffDelete = { fg = c.Red[2], opt = 'bold' },
-    DiffText = { fg = c.DontKnow, opt = 'bold' },
+    DiffText = { fg = c.DontKnow[1], opt = 'bold' },
     EndOfBuffer = { bg = c.Black[1] },
     ErrorMsg = { fg = c.Red[1], bg = c.Black[1] },
-    Folded = { bg = c.Grey[2] },
-    FoldColumn = { bg = c.Grey[2] },
-    LineNr = { fg = c.Grey[2], bg = c.Black[1] },
+    Folded = { bg = c.GreyBg[2] },
+    FoldColumn = { bg = c.GreyBg[2] },
+    LineNr = { fg = c.Grey[1], bg = c.Black[1] },
     CursorLineNr = { fg = c.Yellow[1], opt = 'bold' },
-    MatchParen	= { bg = c.Grey[2], opt = 'bold' },
+    MatchParen	= { bg = c.GreyBg[2], opt = 'bold' },
     ModeMsg = { },
     MsgArea	= { link = 'Normal' },
-    MsgSeparator = { bg = c.Grey[1] },
+    MsgSeparator = { bg = c.GreyBg[1] },
     MoreMsg	= { fg = c.Green[2] },
-    NonText	= { fg = c.Grey[2] },
-    Normal = { fg = c.White, bg = c.Black[2] },
-    NormalFloat	= { fg = c.White, bg = c.Grey[1] },
+    NonText	= { fg = c.Grey[1] },
+    Normal = { fg = c.White[1], bg = c.Black[2] },
+    NormalFloat	= { fg = c.White[1], bg = c.GreyBg[1] },
     NormalNC = { link = 'Normal' },
-    Pmenu = { fg = c.Yellow[3], bg = c.Grey[1] },
-    PmenuSel = { fg = c.Black[1], bg = c.Green[2] },
-    PmenuSbar = { bg = c.Grey[2] },
-    PmenuThumb = { bg = c.White },
+    Pmenu = { fg = c.White[1], bg = c.GreyBg[1] },
+    PmenuSel = { fg = c.White[1], bg = c.Green[2] },
+    PmenuSbar = { bg = c.GreyBg[2] },
+    PmenuThumb = { bg = c.White[1] },
     Question = { link = 'MoreMsg' },
-    Search = { fg = c.Violet, bg = c.Grey[2] },
-    IncSearch = { link = 'Search' },QuickFixLine = { opt = 'bold' },
+    Search = { fg = c.Violet[1], bg = c.GreyBg[2] },
+    IncSearch = { link = 'Search' },
+    QuickFixLine = { opt = 'bold' },
     SignColumn = { bg = c.Black[3] },
-    SpecialKey = { fg = c.Grey[3] },
+    SpecialKey = { fg = c.Grey[1] },
     SpellBad = { bg = c.Red[2], opt = 'underline'},
     SpellCap = { link = 'SpellBad' },
     SpellLocal = {},
     SpellRare = {},
-    StatusLine = { fg = c.White, bg = c.Black[1] },
-    StatusLineNC = { fg = c.Grey[1], bg = c.Black[1] },
+    StatusLine = { fg = c.White[1], bg = c.Black[1] },
+    StatusLineNC = { fg = c.GreyBg[1], bg = c.Black[1] },
     Substitute = { link = 'Search' },
-    TabLine = { fg = c.Green[2], bg = c.Grey[1] },
+    TabLine = { fg = c.Green[2], bg = c.GreyBg[1] },
     TabLineFill = { fg = c.Green[2], bg = c.Black[3]},
     TabLineSel = { opt = 'bold' },
     TermCursor = { link = 'Cursor' },
     TermCursorNC = { link = 'Cursor' },
     VertSplit = { fg = c.Black[1], bg = c.Black[1] },
-    Visual = { fg = c.Grey[2], bg = c.Green[1] },
+    Visual = {  bg = c.Violet[1] },
     VisualNOS = { link = 'Visual' },
     WarningMsg = { bg = c.Yellow[1] },
-    Whitespace = { fg = c.Blue[2], bg = c.Grey[2] },
+    Whitespace = { fg = c.Blue[2], bg = c.GreyBg[2] },
     WildMenu = { link = 'PmenuSel' },
 
 
@@ -168,28 +195,29 @@ wombat.nvim_colors = {
     Boolean = { fg = c.Red[2] },
     Number = { fg = c.Red[2] },
     Float = { link = 'Number' },
-    String = { fg = c.Green[1], opt = 'italic'},
+    String = { fg = c.Green[1] }, --, opt = 'italic'},
     Character = { link = 'String' },
     Constant = { fg = c.Red[1] },
 
-    TSVariable = { link = 'Normal' },
-    TSNamespace = { fg = c.Red[1] },
+    TSVariable = { fg = c.White[1] },
+    TSNamespace = { fg = c.Yellow[1] },
     Function = { fg = c.Green[1], opt = 'bold' },
-    Identifier = { fg = c.Yellow[2] },
+    Identifier = { fg = c.Yellow[2], opt = 'italic' },
     --TSField = {}, -- Identifier
     --TSParameter = {}, -- Identifier
+    -- TSProperty = {}. -- Identifier
     Type = { fg = c.Green[2] },
     TSAnnotation = { fg = c.Yellow[3] },
     TSParameterReference = {fg = c.Green[2], opt = 'italic' },
 
     --TSPunctBracket = {}, -- Delimiter
-    --TSStringEscape = {}, -- SpecialChar
-    Special = { fg = c.Yellow[3] },
-    SpecialChar = { fg = c.Orange },
     Delimiter = { fg = c.Yellow[2] },
+    Special = { fg = c.Yellow[3] },
+    --TSStringEscape = {}, -- SpecialChar
+    SpecialChar = { fg = c.Orange[1] },
     Operator = { fg = c.Blue[2] },
 
-    Keyword = { fg = c.Blue[2] },
+    Keyword = { fg = c.Blue[1] },
     Include = { fg = c.Blue[1] },
     Conditional = { fg = c.Blue[2] },
     PreCondit = { fg = c.Blue[2] },
@@ -204,17 +232,18 @@ wombat.nvim_colors = {
     Exception = { fg = c.Yellow[3] },
     Error = { fg = c.Red[1] },
     StorageClass = { fg = c.Yellow[3] },
-    Tag = { fg = c.Orange },
-    Label = { fg = c.Orange },
+    Tag = { fg = c.Orange[1] },
+    Label = { fg = c.Orange[1] },
     Structure = { fg = c.Green[1] },
     Title = { fg = c.Green[2], opt = 'bold' },
 
-    Comment = { fg = c.Grey[2] },
+    Comment = { fg = c.Grey[1] },
     SpecialComment = { fg = c.Grey[1] },
     Todo = { fg = c.Yellow[1] },
     Ignore = { fg = c.Grey[1] },
     Underlined = { opt = 'underline' },
 }
+
 
 wombat.TreeSitterColors = {
 }
@@ -225,8 +254,10 @@ function wombat.apply_colors(colors)
         if options.link then
             cmd = 'hi! link ' .. group .. ' ' .. options.link
         else
-            local fg = wombat.hsv_to_rgb_hex(options.fg) or 'none'
-            local bg = wombat.hsv_to_rgb_hex(options.bg) or 'none'
+            local fg =
+                wombat.hsv_to_rgb_hex(options.fg, wombat.ColorType.fg) or 'none'
+            local bg =
+                wombat.hsv_to_rgb_hex(options.bg, wombat.ColorType.bg) or 'none'
             local opt = options.opt or 'none'
             cmd = 'hi ' .. group ..
                 ' guifg= ' .. fg ..
@@ -245,7 +276,8 @@ function wombat.setup()
     vim.o.background = 'dark'
     vim.o.termguicolors = true
     vim.g.colors_name = 'wombat-nvim'
-    --wombat.set_terminal_colors()
+
+    preprocess_colors(wombat.Colors)
     wombat.apply_colors(wombat.nvim_colors)
 end
 

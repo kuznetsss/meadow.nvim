@@ -20,11 +20,11 @@ local test_cases = {
 }
 
 local function EXPECT_EQ(t1, t2, name)
-    if type(t1) == 'table' then
+    if type(t1) ~= 'table' then
+        assert(t1 == t2, 'name: ' .. (t1 or 'nil') .. ' vs ' .. (t2 or 'nil'))
+    else
         assert(table.concat(t1) == table.concat(t2),
             name .. ': ' .. table.concat(t1) .. ' vs ' .. table.concat(t2))
-    else
-        assert(t1 == t2, 'name: ' .. t1 .. ' vs ' .. t2)
     end
 end
 
@@ -33,9 +33,13 @@ local rgb_to_hex = require('wombat-nvim').rgb_to_hex
 local hsv_to_rgb_hex = require('wombat-nvim').hsv_to_rgb_hex
 
 for _, case in ipairs(test_cases) do
+    case.hsv.hue = case.hsv[1]
+    case.hsv.saturation = case.hsv[2]
+    case.hsv.value_fg = case.hsv[3]
     EXPECT_EQ(hsv_to_rgb(case.hsv), case.rgb, 'hsv_to_rgb')
     EXPECT_EQ(rgb_to_hex(case.rgb), case.hex, 'rgb_to_hex')
     EXPECT_EQ(hsv_to_rgb_hex(case.hsv), case.hex, 'hsv_to_rgb_hex')
 end
+EXPECT_EQ(hsv_to_rgb_hex(nil), nil)
 
 print(arg[0], ' PASSED')
