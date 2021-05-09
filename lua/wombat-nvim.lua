@@ -227,6 +227,17 @@ wombat.NvimColors = {
     Todo = { fg = c.Yellow[1] },
     Ignore = { fg = c.Grey[1] },
     Underlined = { fg = c.Blue[1], opt = 'underline' },
+
+    LspDiagnosticsDefaultError = { fg = c.Red[2] },
+    LspDiagnosticsDefaultWarning = { fg = c.Orange[1] },
+    LspDiagnosticsDefaultInformation = { fg = c.Blue[1] },
+    LspDiagnosticsDefaultHint = { fg = c.Blue[2] },
+
+    LspDiagnosticsUnderlineError = { style = 'undercurl' },
+    LspDiagnosticsUnderlineWarning = { style = 'undercurl' },
+    LspDiagnosticsUnderlineInformation = { style = 'undercurl' },
+    LspDiagnosticsUnderlineHint = { style = 'undercurl' }
+
 }
 
 wombat.IndentBlankLineColors = {
@@ -261,12 +272,11 @@ wombat.LspSagaColors = {
     DefinitionIcon = { fg = c.Yellow[1] },
     ReferencesIcon = { link = 'DefinitionIcon' },
     ProviderTruncateLine = { link = 'LspFloatWinBorder' },
-    SagaShadow = {},
+    SagaShadow = { bg = c.Black[1] },
     DiagnosticTruncateLine = { link = 'ProviderTruncateLine' },
-    DiagnosticError = { fg = c.Red[1] },
-    DiagnosticWarning = { fg = c.Orange[1] },
-    DiagnosticInformation = { fg = c.Blue[1] },
-    DiagnosticHint = { fg = c.Blue[2] },
+    LspSagaDiagnosticBorder = { link = 'LspFloatWinBorder' },
+    LspSagaDiagnosticTruncateLine = { link = 'LspFloatWinBorder' },
+    LspSagaDiagnosticHeader = { fg = c.Yellow[2] },
     DefinitionPreviewTitle = { link = 'Title' },
     LspSagaShTruncateLine = { link = 'ProviderTruncateLine' },
     LspSagaDocTruncateLine = { link = 'ProviderTruncateLine' },
@@ -282,6 +292,25 @@ wombat.LspSagaColors = {
     LspSagaAutoPreview = { link = 'LspFloatWinBorder' },
     LspSagaDefPreviewBorder = { link = 'LspFloatWinBorder' },
     LspLinesDiagBorder = { link = 'LspFloatWinBorder' }
+}
+
+wombat.TelescopeColors = {
+    TelescopeSelection = {}, -- selected item
+    TelescopeSelectionCaret = {}, -- selection caret
+    TelescopeMultiSelection = {}, -- multisections
+    TelescopeNormal = {}, -- floating windows created by telescope.
+
+    -- Border highlight groups.
+    TelescopeBorder = {},
+    TelescopePromptBorder = {},
+    TelescopeResultsBorder = {},
+    TelescopePreviewBorder = {},
+
+    -- Used for highlighting characters that you match.
+    TelescopeMatching = {},
+
+    -- Used for the prompt prefix
+    TelescopePromptPrefix = {}
 }
 
 function wombat.apply_colors(colors)
