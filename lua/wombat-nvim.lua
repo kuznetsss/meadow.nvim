@@ -70,7 +70,7 @@ wombat.hsv_to_rgb_hex = function(hsv, type)
 end
 
 wombat.Colors = {
-    Black = { {0, 0, 3}, {0, 0, 14}, {0, 0, 19}, {0, 0, 24} },
+    Black = { {0, 0, 3}, {0, 0, 14}, {0, 0, 19}, {0, 0, 22} },
     GreyBg = { {0, 0, 26}, {0, 0, 34} },
     Grey =  { {0, 0, 55} },
     White = { {0, 0} },
@@ -116,12 +116,19 @@ wombat.NvimColors = {
     lCursor = { link = 'Cursor' },
     CursorIM = { link = 'Cursor' },
     CursorColumn = { bg = c.Black[4] },
-    CursorLine = { link = 'CursorColumn' },
+    -- Link is commented out because of the bug in LspSaga
+    -- https://github.com/glepnir/lspsaga.nvim/issues/197
+    CursorLine = { bg = c.Black[4] }, --link = 'CursorColumn' },
     Directory = { fg = c.Blue[1] },
-    DiffAdd = { fg = c.Green[1], opt = 'bold' },
-    DiffChange = { fg = c.Yellow[1], opt = 'bold' },
-    DiffDelete = { fg = c.Red[2], opt = 'bold' },
-    DiffText = { fg = c.Yellow[1], opt = 'bold' },
+
+    DiffAdd = { fg = c.Green[2] },
+    DiffChange = { fg = c.Yellow[1] },
+    DiffDelete = { fg = c.Red[2] },
+    DiffText = { fg = c.Yellow[1] },
+    diffAdded = { link = 'DiffAdd' },
+    diffChanged = { link = 'DiffChange' },
+    diffRemoved = { link = 'DiffDelete' },
+
     EndOfBuffer = { bg = c.Black[1] },
     ErrorMsg = { fg = c.Red[1], bg = c.Black[1] },
     Folded = { bg = c.GreyBg[2] },
@@ -138,7 +145,7 @@ wombat.NvimColors = {
     NormalFloat	= { fg = c.White[1], bg = c.GreyBg[1] },
     NormalNC = { link = 'Normal' },
     Pmenu = { fg = c.White[1], bg = c.GreyBg[1] },
-    PmenuSel = { fg = c.White[1], bg = c.Green[2] },
+    PmenuSel = { fg = c.Green[2], bg = c.GreyBg[2], opt = 'bold' },
     PmenuSbar = { bg = c.GreyBg[2] },
     PmenuThumb = { bg = c.White[1] },
     Question = { link = 'MoreMsg' },
@@ -241,7 +248,43 @@ wombat.SignifyColors = {
     SignifySignDeleteFirstLine = { link = 'SignifySignDelete' }
 }
 
-function wombat.apply_colors(colors) --asdas
+wombat.LspSagaColors = {
+    LspSagaFinderSelection = { fg = c.Green[2], bg = c.GreyBg[1], opt = 'bold' },
+    LspFloatWinNormal = { bg = c.Black[3] },
+    LspFloatWinBorder = { fg = c.Grey[1], bg = c.Black[3] },
+    LspSagaLspFinderBorder = { link = 'LspFloatWinBorder' },
+    LspSagaBorderTitle = { link = 'Title' },
+    TargetWord = { fg = c.Yellow[1], opt = 'bold' },
+    ReferencesCount = { fg = c.Red[2] },
+    DefinitionCount = { link = 'ReferencesCount' },
+    TargetFileName = { fg = c.White[1] },
+    DefinitionIcon = { fg = c.Yellow[1] },
+    ReferencesIcon = { link = 'DefinitionIcon' },
+    ProviderTruncateLine = { link = 'LspFloatWinBorder' },
+    SagaShadow = {},
+    DiagnosticTruncateLine = { link = 'ProviderTruncateLine' },
+    DiagnosticError = { fg = c.Red[1] },
+    DiagnosticWarning = { fg = c.Orange[1] },
+    DiagnosticInformation = { fg = c.Blue[1] },
+    DiagnosticHint = { fg = c.Blue[2] },
+    DefinitionPreviewTitle = { link = 'Title' },
+    LspSagaShTruncateLine = { link = 'ProviderTruncateLine' },
+    LspSagaDocTruncateLine = { link = 'ProviderTruncateLine' },
+    LineDiagTuncateLine = { link = 'ProviderTruncateLine' },
+    LspSagaCodeActionTitle = { link = 'Title' },
+    LspSagaCodeActionTruncateLine = { link = 'ProviderTruncateLine' },
+    LspSagaCodeActionContent = { fg = c.White[1] },
+    LspSagaRenamePromptPrefix = { fg = c.Green[1] },
+    LspSagaRenameBorder = { link = 'LspFloatWinBorder' },
+    LspSagaHoverBorder = { link = 'LspFloatWinBorder' },
+    LspSagaSignatureHelpBorder = { link = 'LspFloatWinBorder' },
+    LspSagaCodeActionBorder = { link = 'LspFloatWinBorder' },
+    LspSagaAutoPreview = { link = 'LspFloatWinBorder' },
+    LspSagaDefPreviewBorder = { link = 'LspFloatWinBorder' },
+    LspLinesDiagBorder = { link = 'LspFloatWinBorder' }
+}
+
+function wombat.apply_colors(colors)
     for group, options in pairs(colors) do
         local cmd = ''
         if options.link then
@@ -273,6 +316,7 @@ function wombat.setup()
     wombat.apply_colors(wombat.NvimColors)
     wombat.apply_colors(wombat.IndentBlankLineColors)
     wombat.apply_colors(wombat.SignifyColors)
+    wombat.apply_colors(wombat.LspSagaColors)
 end
 
 return wombat
