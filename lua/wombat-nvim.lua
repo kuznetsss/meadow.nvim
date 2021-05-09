@@ -228,7 +228,20 @@ wombat.IndentBlankLineColors = {
     IndentBlanklineSpaceCharBlankline = { link = 'IndentBlanklineChar' }
 }
 
-function wombat.apply_colors(colors)
+wombat.SignifyColors = {
+    SignifySignAdd = { fg = c.Green[1], bg = c.Black[3], opt = 'bold' },
+    SignifySignDelete = { fg = c.Red[1], bg = c.Black[3], opt = 'bold' },
+    SignifySignChange = { fg = c.Yellow[1], bg = c.Black[3], opt = 'bold' },
+    SignifyLineAdd = { link = 'SignifySignAdd' },
+    SignifyLineChange = { link = 'SignifyLineChange' },
+    SignifyLineChangeDelete   = { link = 'SignifyLineChange' },
+    SignifyLineDelete = { link = 'SignifySignDelete' },
+    SignifyLineDeleteFirstLine = { link = 'SignifySignDelete' },
+    SignifySignChangeDelete = { link = 'SignifyLineChange' },
+    SignifySignDeleteFirstLine = { link = 'SignifySignDelete' }
+}
+
+function wombat.apply_colors(colors) --asdas
     for group, options in pairs(colors) do
         local cmd = ''
         if options.link then
@@ -259,6 +272,7 @@ function wombat.setup()
 
     wombat.apply_colors(wombat.NvimColors)
     wombat.apply_colors(wombat.IndentBlankLineColors)
+    wombat.apply_colors(wombat.SignifyColors)
 end
 
 return wombat
