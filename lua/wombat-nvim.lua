@@ -228,7 +228,7 @@ wombat.NvimColors = {
     Ignore = { fg = c.Grey[1] },
     Underlined = { fg = c.Blue[1], opt = 'underline' },
 
-    LspDiagnosticsDefaultError = { fg = c.Red[2] },
+    LspDiagnosticsDefaultError = { fg = c.Red[1] },
     LspDiagnosticsDefaultWarning = { fg = c.Orange[1] },
     LspDiagnosticsDefaultInformation = { fg = c.Blue[1] },
     LspDiagnosticsDefaultHint = { fg = c.Blue[2] },
