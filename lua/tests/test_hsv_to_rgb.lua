@@ -1,5 +1,3 @@
-package.path = package.path .. ';../lua/meadow-nvim.lua'
-
 local test_cases = {
     { hsv = {0,0,0}, hex = '#000000', rgb = {0,0,0} },
     { hsv = {0,0,100}, hex = '#ffffff', rgb = {255,255,255} },
@@ -28,9 +26,9 @@ local function EXPECT_EQ(t1, t2, name)
     end
 end
 
-local hsv_to_rgb = require('meadow-nvim').hsv_to_rgb
-local rgb_to_hex = require('meadow-nvim').rgb_to_hex
-local hsv_to_rgb_hex = require('meadow-nvim').hsv_to_rgb_hex
+local hsv_to_rgb = require('meadow.convert_color').hsv_to_rgb
+local rgb_to_hex = require('meadow.convert_color').rgb_to_hex
+local hsv_to_rgb_hex = require('meadow').hsv_to_rgb_hex
 
 for _, case in ipairs(test_cases) do
     case.hsv.hue = case.hsv[1]

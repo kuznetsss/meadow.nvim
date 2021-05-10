@@ -1,2 +1,2 @@
-lua package.loaded['meadow-nvim'] = nil
-lua require'meadow-nvim'.setup()
+lua package.loaded['meadow'] = nil
+lua require'meadow'.setup()
