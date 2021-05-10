@@ -12,8 +12,9 @@ meadow.DEFAULT_OPTIONS = {
 
 meadow.options = nil
 
-function meadow.log_error(msg)
-     vim.cmd('echohl ErrorMsg')
+function meadow.log(msg, hl)
+    hl = hl or 'Normal'
+     vim.cmd('echohl ' .. hl)
      vim.cmd('echomsg " meadow: ' .. msg .. '"')
      vim.cmd('echohl None')
 end
@@ -45,12 +46,12 @@ function meadow.merge_options(options)
     end
     if options then
         if type(options) ~= 'table' then
-            meadow.log_error('Options must be table')
+            meadow.log('Options must be table', 'ErrorMsg')
             return false
         end
         for k, v in pairs(options) do
             if not meadow.DEFAULT_OPTIONS[k] then
-                meadow.log_error('Unknown option ' .. k)
+                meadow.log('Unknown option ' .. k, 'WarningMsg')
             else
                 meadow.options[k] = v
             end
@@ -381,20 +382,24 @@ end
 
 function meadow.set_brightness(new_value)
     meadow.apply_colors({color_value = new_value})
+    meadow.log("brightness changed to " .. meadow.options.color_value)
 end
 
 function meadow.change_brightness(diff)
     local new_value = meadow.options.color_value + diff
     meadow.apply_colors({color_value = new_value})
+    meadow.log("brightness changed to " .. meadow.options.color_value)
 end
 
 function meadow.set_contrast(new_value)
     meadow.apply_colors({color_saturation = new_value})
+    meadow.log("contrast changed to " .. meadow.options.color_saturation)
 end
 
 function meadow.change_contrast(diff)
     local new_value = meadow.options.color_saturation + diff
     meadow.apply_colors({color_saturation = new_value})
+    meadow.log("contrast changed to " .. meadow.options.color_saturation)
 end
 
 function meadow.setup(options)
