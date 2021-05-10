@@ -1,7 +1,65 @@
 local meadow = {}
 
-meadow.COLOR_SATURATION = 75
-meadow.COLOR_VALUE = 75
+meadow.DEFAULT_OPTIONS = {
+    color_saturation = 65,
+    color_value = 70,
+    indentblankline_colors = true,
+    signify_colors = true,
+    lspsaga_colors = true,
+    telescope_colors = true
+}
+
+meadow.options = nil
+
+function meadow.log_error(msg)
+     vim.cmd('echohl ErrorMsg')
+     vim.cmd('echomsg " meadow: ' .. msg .. '"')
+     vim.cmd('echohl None')
+end
+
+function meadow.set_default_options()
+    meadow.options = {}
+    for k, v in pairs(meadow.DEFAULT_OPTIONS) do
+        meadow.options[k] = v
+    end
+end
+
+local function fix_value(value)
+    if value < 0 then return 0 end
+    if value > 100 then return 100 end
+    return value
+end
+
+local function copy(origianl_table)
+    local copy_table = {}
+    for k,v in pairs(origianl_table) do
+        copy_table[k] = v
+    end
+    return copy_table
+end
+
+function meadow.merge_options(options)
+    if not meadow.options then
+        meadow.set_default_options()
+    end
+    if options then
+        if type(options) ~= 'table' then
+            meadow.log_error('Options must be table')
+            return false
+        end
+        for k, v in pairs(options) do
+            if not meadow.DEFAULT_OPTIONS[k] then
+                meadow.log_error('Unknown option ' .. k)
+            else
+                meadow.options[k] = v
+            end
+        end
+    end
+    -- Check values range
+    meadow.options.color_saturation = fix_value(meadow.options.color_saturation)
+    meadow.options.color_value = fix_value(meadow.options.color_value)
+    return true
+end
 
 local convert_color = require'meadow.convert_color'
 
@@ -39,6 +97,8 @@ meadow.Colors = {
     Pink = { {326} },
 }
 
+meadow.DEFAULT_HSV_COLORS = copy(meadow.Colors)
+
 meadow.StaticColors = { Black = true, GreyBg = true }
 
 local function preprocess_colors()
@@ -51,16 +111,15 @@ local function preprocess_colors()
                 hsv.value_bg = hsv[3]
             else
                 hsv.hue = hsv[1]
-                hsv.saturation = hsv[2] or meadow.COLOR_SATURATION
+                hsv.saturation = hsv[2] or meadow.options.color_saturation
                 hsv.value_fg = hsv[3] and
-                    hsv[3] * meadow.COLOR_VALUE / 100 or
-                    meadow.COLOR_VALUE
-                hsv.value_bg = hsv[3] or meadow.COLOR_VALUE / 2
+                    hsv[3] * meadow.options.color_value / 100 or
+                    meadow.options.color_value
+                hsv.value_bg = hsv[3] or meadow.options.color_value / 2
             end
         end
     end
 end
-preprocess_colors()
 
 local c = meadow.Colors
 
@@ -271,7 +330,7 @@ meadow.TelescopeColors = {
     TelescopePromptPrefix = { fg = c.Green[2] }
 }
 
-function meadow.apply_colors(colors)
+function meadow.set_highlights(colors)
     for group, options in pairs(colors) do
         local cmd = ''
         if options.link then
@@ -291,7 +350,47 @@ function meadow.apply_colors(colors)
     end
 end
 
-function meadow.setup()
+function meadow.apply_colors(options)
+    if not meadow.merge_options(options) then
+        return
+    end
+    meadow.Colors = copy(meadow.DEFAULT_HSV_COLORS)
+    preprocess_colors()
+
+    meadow.set_highlights(meadow.NvimColors)
+    if meadow.options.indentblankline_colors then
+        meadow.set_highlights(meadow.IndentBlankLineColors)
+    end
+    if meadow.options.signify_colors then
+        meadow.set_highlights(meadow.SignifyColors)
+    end
+    if meadow.options.lspsaga_colors then
+        meadow.set_highlights(meadow.LspSagaColors)
+    end
+    if meadow.options.telescope_colors then
+        meadow.set_highlights(meadow.TelescopeColors)
+    end
+end
+
+function meadow.set_brightness(new_value)
+    meadow.apply_colors({color_value = new_value})
+end
+
+function meadow.change_brightness(diff)
+    local new_value = meadow.options.color_value + diff
+    meadow.apply_colors({color_value = new_value})
+end
+
+function meadow.set_contrast(new_value)
+    meadow.apply_colors({color_saturation = new_value})
+end
+
+function meadow.change_contrast(diff)
+    local new_value = meadow.options.color_saturation + diff
+    meadow.apply_colors({color_saturation = new_value})
+end
+
+function meadow.setup(options)
     vim.api.nvim_command('highlight clear')
     if vim.fn.exists('syntax_on') then
         vim.api.nvim_command('syntax reset')
@@ -300,11 +399,7 @@ function meadow.setup()
     vim.o.termguicolors = true
     vim.g.colors_name = 'meadow-nvim'
 
-    meadow.apply_colors(meadow.NvimColors)
-    meadow.apply_colors(meadow.IndentBlankLineColors)
-    meadow.apply_colors(meadow.SignifyColors)
-    meadow.apply_colors(meadow.LspSagaColors)
-    meadow.apply_colors(meadow.TelescopeColors)
+    meadow.apply_colors(options)
 end
 
 return meadow
