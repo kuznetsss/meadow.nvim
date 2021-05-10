@@ -169,7 +169,7 @@ meadow.NvimColors = {
     QuickFixLine = { opt = 'bold' },
     SignColumn = { bg = c.Black[3] },
     SpecialKey = { fg = c.Grey[1] },
-    SpellBad = { bg = c.Red[2], opt = 'underline'},
+    SpellBad = { opt = 'underline' },
     SpellCap = { link = 'SpellBad' },
     SpellLocal = { link = 'SpellBad' },
     SpellRare = { link = 'SpellBad' },
@@ -251,7 +251,6 @@ meadow.NvimColors = {
     LspDiagnosticsUnderlineWarning = { bg = c.Orange[1] },
     LspDiagnosticsUnderlineInformation = { bg = c.Blue[1] },
     LspDiagnosticsUnderlineHint = { bg = c.Blue[2] }
-
 }
 
 meadow.IndentBlankLineColors = {
@@ -331,15 +330,15 @@ meadow.TelescopeColors = {
 }
 
 meadow.SpelunkerColors = {
-    SpelunkerSpellBad = { opt = 'underline' },
-    SpelunkerComplexOrCompoundWord = { link = 'SpelunkerSpellBad' }
+    SpelunkerSpellBad = { link = 'SpellBad' },
+    SpelunkerComplexOrCompoundWord = { link = 'SpellBad' }
 }
 
 function meadow.set_highlights(colors)
     for group, options in pairs(colors) do
         local cmd = ''
         if options.link then
-            cmd = 'hi! link ' .. group .. ' ' .. options.link
+            cmd = 'hi link ' .. group .. ' ' .. options.link
         else
             local fg =
                 meadow.hsv_to_rgb_hex(options.fg, meadow.ColorType.fg) or 'none'
