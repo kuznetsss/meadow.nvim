@@ -295,22 +295,25 @@ wombat.LspSagaColors = {
 }
 
 wombat.TelescopeColors = {
-    TelescopeSelection = {}, -- selected item
-    TelescopeSelectionCaret = {}, -- selection caret
-    TelescopeMultiSelection = {}, -- multisections
-    TelescopeNormal = {}, -- floating windows created by telescope.
+     -- selected item
+    TelescopeSelection = { fg = c.Green[2], bg = c.GreyBg[1], opt = 'bold' },
+     -- selection caret
+    TelescopeSelectionCaret = { fg = c.Green[2], bg = c.GreyBg[1] },
+    TelescopeMultiSelection = { link = 'TelescopeSelection' }, -- multisections
+     -- floating windows created by telescope.
+    TelescopeNormal = { fg = c.White[1], bg = c.Black[3] },
 
     -- Border highlight groups.
-    TelescopeBorder = {},
-    TelescopePromptBorder = {},
-    TelescopeResultsBorder = {},
-    TelescopePreviewBorder = {},
+    TelescopeBorder = { fg = c.Grey[1], bg = c.Black[3] },
+    TelescopePromptBorder = { link = 'TelescopeBorder' },
+    TelescopeResultsBorder = { link = 'TelescopeBorder' },
+    TelescopePreviewBorder = { link = 'TelescopeBorder' },
 
     -- Used for highlighting characters that you match.
-    TelescopeMatching = {},
+    TelescopeMatching = { link = 'Search' },
 
     -- Used for the prompt prefix
-    TelescopePromptPrefix = {}
+    TelescopePromptPrefix = { fg = c.Green[2] }
 }
 
 function wombat.apply_colors(colors)
@@ -346,6 +349,7 @@ function wombat.setup()
     wombat.apply_colors(wombat.IndentBlankLineColors)
     wombat.apply_colors(wombat.SignifyColors)
     wombat.apply_colors(wombat.LspSagaColors)
+    wombat.apply_colors(wombat.TelescopeColors)
 end
 
 return wombat
