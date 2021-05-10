@@ -6,7 +6,8 @@ meadow.DEFAULT_OPTIONS = {
     indentblankline_colors = true,
     signify_colors = true,
     lspsaga_colors = true,
-    telescope_colors = true
+    telescope_colors = true,
+    spelunker_colors = true,
 }
 
 meadow.options = nil
@@ -30,9 +31,9 @@ local function fix_value(value)
     return value
 end
 
-local function copy(origianl_table)
+local function copy(original_table)
     local copy_table = {}
-    for k,v in pairs(origianl_table) do
+    for k,v in pairs(original_table) do
         copy_table[k] = v
     end
     return copy_table
@@ -187,7 +188,6 @@ meadow.NvimColors = {
     Whitespace = { fg = c.Blue[3], bg = c.GreyBg[2] },
     WildMenu = { link = 'PmenuSel' },
 
-
     Debug = { bg = c.Red[2] },
     debugBreakpoint = { fg = c.Red[2] },
 
@@ -247,10 +247,10 @@ meadow.NvimColors = {
     LspDiagnosticsDefaultInformation = { fg = c.Blue[1] },
     LspDiagnosticsDefaultHint = { fg = c.Blue[2] },
 
-    LspDiagnosticsUnderlineError = { style = 'underline' },
-    LspDiagnosticsUnderlineWarning = { style = 'underline' },
-    LspDiagnosticsUnderlineInformation = { style = 'underline' },
-    LspDiagnosticsUnderlineHint = { style = 'underline' }
+    LspDiagnosticsUnderlineError = { bg = c.Red[1] },
+    LspDiagnosticsUnderlineWarning = { bg = c.Orange[1] },
+    LspDiagnosticsUnderlineInformation = { bg = c.Blue[1] },
+    LspDiagnosticsUnderlineHint = { bg = c.Blue[2] }
 
 }
 
@@ -330,6 +330,11 @@ meadow.TelescopeColors = {
     TelescopePromptPrefix = { fg = c.Green[2] }
 }
 
+meadow.SpelunkerColors = {
+    SpelunkerSpellBad = { opt = 'underline' },
+    SpelunkerComplexOrCompoundWord = { link = 'SpelunkerSpellBad' }
+}
+
 function meadow.set_highlights(colors)
     for group, options in pairs(colors) do
         local cmd = ''
@@ -369,6 +374,9 @@ function meadow.apply_colors(options)
     end
     if meadow.options.telescope_colors then
         meadow.set_highlights(meadow.TelescopeColors)
+    end
+    if meadow.options.spelunker_colors then
+        meadow.set_highlights(meadow.SpelunkerColors)
     end
 end
 
