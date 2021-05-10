@@ -54,6 +54,7 @@ Brightness could be changed by lua commands:
 ```lua
 -- Add relative_value (could be negative) to current brightness (color_value option)
 require'meadow'.change_brightness(<relative_value>)
+
 -- Set brightness (color_value option) to absolute_value
 require'meadow'.set_brightness(<absolute_value>)
 ```
@@ -63,6 +64,7 @@ Contrast could be changed by lua commands:
 ```lua
 -- Add relative_value (could be negative) to current contrast (color_saturation option)
 require'meadow'.change_contrast(<relative_value>)
+
 -- Set contrast (color_saturation option) to absolute_value
 require'meadow'.set_contrast(<absolute_value>)
 ```
@@ -71,6 +73,7 @@ Current values of options could be obtained by:
 
 ```lua 
 require'meadow'.options
+
 -- Returns table:
 -- {
 --     color_saturation,
