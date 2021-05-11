@@ -33,7 +33,7 @@ Python:
 </details>
 
 ## Changing brightness and contrast
-![c++](https://github.com/kuznetsss/meadow-nvim/blob/media/media/example-2021-05-12_00.01.39.mp4?raw=true)
+![c++](https://github.com/kuznetsss/meadow-nvim/blob/media/media/example-2021-05-12_00.01.39.mp4)
 
 ## Install
 
