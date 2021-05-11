@@ -15,6 +15,26 @@ A dark neovim colorscheme based on
 - bold **functions** and **methods**
 - italic *fields* and *properties*
 
+## Screenshots
+
+Lua:
+![lua](https://github.com/kuznetsss/meadow-nvim/blob/media/media/lua.png)
+
+<details><summary>More screenshots</summary>
+<p>
+
+C++:
+![c++](https://github.com/kuznetsss/meadow-nvim/blob/media/media/cpp.png)
+
+Python:
+![python](https://github.com/kuznetsss/meadow-nvim/blob/media/media/python.png)
+
+</p>
+</details>
+
+## Changing brightness and contrast
+![](https://github.com/kuznetsss/meadow-nvim/blob/media/media/example.gif)
+
 ## Install
 
 It could be installed using any plugin manager, 
