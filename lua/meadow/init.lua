@@ -248,6 +248,11 @@ meadow.NvimColors = {
     LspDiagnosticsDefaultInformation = { fg = c.Blue[1] },
     LspDiagnosticsDefaultHint = { fg = c.Blue[2] },
 
+    LspDiagnosticsSignError ={ fg = c.Red[1], bg = c.Black[3] },
+    LspDiagnosticsSignWarning = { fg = c.Orange[1], bg = c.Black[3] },
+    LspDiagnosticsSignHint = { fg = c.Blue[1], bg = c.Black[3] },
+    LspDiagnosticsSignInformation = { fg = c.Blue[2], bg = c.Black[3] },
+
     LspDiagnosticsUnderlineError = { bg = c.Red[1] },
     LspDiagnosticsUnderlineWarning = { bg = c.Orange[1] },
     LspDiagnosticsUnderlineInformation = { bg = c.Blue[1] },
