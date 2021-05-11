@@ -1,8 +1,8 @@
 local meadow = {}
 
 meadow.DEFAULT_OPTIONS = {
-    color_saturation = 65,
-    color_value = 70,
+    color_saturation = 80,
+    color_value = 80,
     indentblankline_colors = true,
     signify_colors = true,
     lspsaga_colors = true,
