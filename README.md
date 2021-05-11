@@ -57,8 +57,8 @@ Or initialize from lua:
 ```lua
 require'meadow'.setup {
     -- Available options and default values
-    color_saturation = 65, -- colors contrast, can be from 0 to 100
-    color_value = 70, -- colors brightness, can be from 0 to 100
+    color_saturation = 80, -- colors contrast, can be from 0 to 100
+    color_value = 80, -- colors brightness, can be from 0 to 100
     indentblankline_colors = true, -- set colors for indent-blankline
     signify_colors = true, -- set colors for signify
     lspsaga_colors = true, -- set colors for lspsaga
