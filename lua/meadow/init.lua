@@ -186,7 +186,7 @@ meadow.NvimColors = {
     Visual = { bg = c.Violet[1] },
     VisualNOS = { link = 'Visual' },
     WarningMsg = { bg = c.Yellow[1] },
-    Whitespace = { fg = c.Blue[3], bg = c.GreyBg[2] },
+    Whitespace = { fg = c.White[1], bg = c.Orange[1] },
     WildMenu = { link = 'PmenuSel' },
 
     Debug = { bg = c.Red[2] },
