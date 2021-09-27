@@ -149,16 +149,16 @@ meadow.NvimColors = {
     ErrorMsg = { fg = c.Red[1], bg = c.Black[1] },
     Folded = { bg = c.GreyBg[2] },
     FoldColumn = { bg = c.GreyBg[2] },
-    LineNr = { fg = c.Grey[1], bg = c.Black[1] },
-    CursorLineNr = { fg = c.Yellow[1], opt = 'bold' },
-    MatchParen	= { bg = c.Yellow[1], opt = 'bold' },
+    LineNr = { fg = c.Grey[1], bg = c.Black[2] },
+    CursorLineNr = { fg = c.Yellow[1], bg = c.Black[4], opt = 'bold' },
+    MatchParen = { bg = c.Yellow[1], opt = 'bold' },
     ModeMsg = { link = 'Normal' },
-    MsgArea	= { link = 'Normal' },
+    MsgArea = { link = 'Normal' },
     MsgSeparator = { bg = c.GreyBg[1] },
-    MoreMsg	= { fg = c.Green[2] },
-    NonText	= { fg = c.Grey[1] },
+    MoreMsg = { fg = c.Green[2] },
+    NonText = { fg = c.Grey[1] },
     Normal = { fg = c.White[1], bg = c.Black[2] },
-    NormalFloat	= { fg = c.White[1], bg = c.GreyBg[1] },
+    NormalFloat = { fg = c.White[1], bg = c.GreyBg[1] },
     NormalNC = { link = 'Normal' },
     Pmenu = { fg = c.White[1], bg = c.GreyBg[1] },
     PmenuSel = { fg = c.Green[2], bg = c.GreyBg[2], opt = 'bold' },
@@ -168,7 +168,7 @@ meadow.NvimColors = {
     Search = { bg = c.Violet[1] },
     IncSearch = { link = 'Search' },
     QuickFixLine = { opt = 'bold' },
-    SignColumn = { bg = c.Black[3] },
+    SignColumn = { bg = c.Black[2] },
     SpecialKey = { fg = c.Grey[1] },
     SpellBad = { opt = 'underline' },
     SpellCap = { link = 'SpellBad' },
@@ -408,7 +408,6 @@ function meadow.change_contrast(diff)
 end
 
 function meadow.setup(options)
-    vim.api.nvim_command('highlight clear')
     if vim.fn.exists('syntax_on') then
         vim.api.nvim_command('syntax reset')
     end
