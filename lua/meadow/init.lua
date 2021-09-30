@@ -248,15 +248,15 @@ meadow.NvimColors = {
     LspDiagnosticsDefaultInformation = { fg = c.Blue[1] },
     LspDiagnosticsDefaultHint = { fg = c.Blue[2] },
 
-    LspDiagnosticsSignError ={ fg = c.Red[1], bg = c.Black[3] },
-    LspDiagnosticsSignWarning = { fg = c.Orange[1], bg = c.Black[3] },
-    LspDiagnosticsSignHint = { fg = c.Blue[1], bg = c.Black[3] },
-    LspDiagnosticsSignInformation = { fg = c.Blue[2], bg = c.Black[3] },
+    LspDiagnosticsSignError ={ link = 'LspDiagnosticsDefaultError' },
+    LspDiagnosticsSignWarning = { link = 'LspDiagnosticsDefaultWarning' },
+    LspDiagnosticsSignInformation = { link = 'LspDiagnosticsSignInformation' },
+    LspDiagnosticsSignHint = { link = 'LspDiagnosticsDefaultHint' },
 
-    LspDiagnosticsUnderlineError = { bg = c.Red[1] },
-    LspDiagnosticsUnderlineWarning = { bg = c.Orange[1] },
-    LspDiagnosticsUnderlineInformation = { bg = c.Blue[1] },
-    LspDiagnosticsUnderlineHint = { bg = c.Blue[2] }
+    LspDiagnosticsUnderlineError = { link = 'LspDiagnosticsDefaultError' },
+    LspDiagnosticsUnderlineWarning = { link = 'LspDiagnosticsDefaultWarning' },
+    LspDiagnosticsUnderlineInformation = { link = 'LspDiagnosticsSignInformation' },
+    LspDiagnosticsUnderlineHint = { link = 'LspDiagnosticsDefaultHint' }
 }
 
 meadow.IndentBlankLineColors = {
@@ -266,9 +266,9 @@ meadow.IndentBlankLineColors = {
 }
 
 meadow.SignifyColors = {
-    SignifySignAdd = { fg = c.Green[1], bg = c.Black[3], opt = 'bold' },
-    SignifySignDelete = { fg = c.Red[1], bg = c.Black[3], opt = 'bold' },
-    SignifySignChange = { fg = c.Yellow[1], bg = c.Black[3], opt = 'bold' },
+    SignifySignAdd = { fg = c.Green[1], opt = 'bold' },
+    SignifySignDelete = { fg = c.Red[1], opt = 'bold' },
+    SignifySignChange = { fg = c.Yellow[1], opt = 'bold' },
     SignifyLineAdd = { link = 'SignifySignAdd' },
     SignifyLineChange = { link = 'SignifyLineChange' },
     SignifyLineChangeDelete   = { link = 'SignifyLineChange' },
