@@ -407,6 +407,25 @@ function meadow.change_contrast(diff)
     meadow.log("contrast changed to " .. meadow.options.color_saturation)
 end
 
+local function define_commands()
+    vim.cmd(
+        [[command! -nargs=1 MeadowChangeBrightness
+        \ lua require'meadow'.change_brightness(<args>)]]
+    )
+    vim.cmd(
+        [[command! -nargs=1 MeadowSetBrightness
+        \ lua require'meadow'.set_brightness(<args>)]]
+    )
+    vim.cmd(
+        [[command! -nargs=1 MeadowChangeContrast
+        \ lua require'meadow'.change_contrast(<args>)]]
+    )
+    vim.cmd(
+        [[command! -nargs=1 MeadowSetConstrast
+        \ lua require'meadow'.set_contrast(<args>)]]
+    )
+end
+
 function meadow.setup(options)
     if vim.fn.exists('syntax_on') then
         vim.api.nvim_command('syntax reset')
@@ -416,6 +435,7 @@ function meadow.setup(options)
     vim.g.colors_name = 'meadow-nvim'
 
     meadow.apply_colors(options)
+    define_commands()
 end
 
 return meadow
