@@ -18,26 +18,23 @@ A dark neovim colorscheme based on
 ## Screenshots
 
 Lua:
-![lua](https://github.com/kuznetsss/meadow-nvim/blob/media/media/lua.png)
+![lua](https://user-images.githubusercontent.com/15742918/135935783-61b11df5-cd00-456d-8cc6-136dadf4e59d.png)
 
 <details><summary>More screenshots</summary>
 <p>
 
 C++:
-![c++](https://github.com/kuznetsss/meadow-nvim/blob/media/media/cpp.png)
+![c++](https://user-images.githubusercontent.com/15742918/135935785-9372a829-e325-47a0-8203-f8aa69fa67c9.png)
 
 Python:
-![python](https://github.com/kuznetsss/meadow-nvim/blob/media/media/python.png)
+![python](https://user-images.githubusercontent.com/15742918/135935776-e38cf97f-3c13-4d23-999b-54ccdda0a7b5.png)
 
 </p>
 </details>
 
-## Changing brightness and contrast
-![](https://github.com/kuznetsss/meadow-nvim/blob/media/media/example.gif)
-
 ## Install
 
-It could be installed using any plugin manager, 
+It could be installed using any plugin manager,
 e.g. [packer](https://github.com/wbthomason/packer.nvim):
 
 ```lua
@@ -69,29 +66,50 @@ require'meadow'.setup {
 
 ## Adjusting brightness and contrast
 
-Brightness could be changed by lua commands:
+Brightness could be changed using lua:
 
 ```lua
--- Add relative_value (could be negative) to current brightness (color_value option)
+-- Add relative_value (could be negative) to the current brightness (color_value option)
 require'meadow'.change_brightness(<relative_value>)
 
 -- Set brightness (color_value option) to absolute_value
 require'meadow'.set_brightness(<absolute_value>)
 ```
 
-Contrast could be changed by lua commands:
+or using vim commands:
+
+```vim
+" Add relative_value (could be negative) to the current brightness (color_value option)
+:MeadowChangeBrightness <relative_value>
+
+" Set brightness (color_value option) to absolute_value
+:MeadowSetBrightness <absolute_value>
+```
+
+
+Contrast could be changed using lua:
 
 ```lua
--- Add relative_value (could be negative) to current contrast (color_saturation option)
+-- Add relative_value (could be negative) to the current contrast (color_saturation option)
 require'meadow'.change_contrast(<relative_value>)
 
 -- Set contrast (color_saturation option) to absolute_value
 require'meadow'.set_contrast(<absolute_value>)
 ```
 
+or using vim commands:
+
+```vim
+" Add relative_value (could be negative) to the current contrast (color_saturation option)
+:MeadowChangeContrast <relative_value>
+
+" Set contrast (color_saturation option) to absolute_value
+:MeadowSetConstrast <absolute_value>
+```
+
 Current values of options could be obtained by:
 
-```lua 
+```lua
 require'meadow'.options
 
 -- Returns table:
