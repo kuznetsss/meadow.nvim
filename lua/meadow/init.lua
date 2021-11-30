@@ -243,20 +243,21 @@ meadow.NvimColors = {
     Ignore = { fg = c.Grey[1] },
     Underlined = { fg = c.Blue[1], opt = 'underline' },
 
-    LspDiagnosticsDefaultError = { fg = c.Red[1] },
-    LspDiagnosticsDefaultWarning = { fg = c.Orange[1] },
-    LspDiagnosticsDefaultInformation = { fg = c.Blue[1] },
-    LspDiagnosticsDefaultHint = { fg = c.Blue[2] },
 
-    LspDiagnosticsSignError ={ link = 'LspDiagnosticsDefaultError' },
-    LspDiagnosticsSignWarning = { link = 'LspDiagnosticsDefaultWarning' },
-    LspDiagnosticsSignInformation = { link = 'LspDiagnosticsSignInformation' },
-    LspDiagnosticsSignHint = { link = 'LspDiagnosticsDefaultHint' },
+    DiagnosticError = { fg = c.Red[1] },
+    DiagnosticWarn = { fg = c.Orange[1] },
+    DiagnosticInfo = { fg = c.Blue[1] },
+    DiagnosticHint = { fg = c.Blue[2] },
 
-    LspDiagnosticsUnderlineError = { link = 'LspDiagnosticsDefaultError' },
-    LspDiagnosticsUnderlineWarning = { link = 'LspDiagnosticsDefaultWarning' },
-    LspDiagnosticsUnderlineInformation = { link = 'LspDiagnosticsSignInformation' },
-    LspDiagnosticsUnderlineHint = { link = 'LspDiagnosticsDefaultHint' }
+    DiagnosticSignError = { link = 'DiagnosticError' },
+    DiagnosticSignWarn = { link = 'DiagnosticWarn' },
+    DiagnosticSignInfo = { link = 'DiagnosticInfo' },
+    DiagnosticSignHint = { link = 'DiagnosticHint' },
+
+    DiagnosticUnderlineError = { link = 'DiagnosticError' },
+    DiagnosticUnderlineWarn = { link = 'DiagnosticWarn' },
+    DiagnosticUnderlineInfo = { link = 'DiagnosticInfo' },
+    DiagnosticUnderlineHint = { link = 'DiagnosticHint' }
 }
 
 meadow.IndentBlankLineColors = {
