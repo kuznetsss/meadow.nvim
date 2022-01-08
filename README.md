@@ -60,7 +60,8 @@ require'meadow'.setup {
     signify_colors = true, -- set colors for signify
     lspsaga_colors = true, -- set colors for lspsaga
     telescope_colors = true, -- set colors for telescope
-    spelunker_colors = true, -- set colors for spelunker 
+    spelunker_colors = true, -- set colors for spelunker
+    fixed_line_colors = true -- set colors for fixed_line
 }
 ```
 
@@ -121,6 +122,7 @@ require'meadow'.options
 --     lspsaga_colors,
 --     telescope_colors,
 --     spelunker_colors,
+--     fixed_line_colors
 -- }
 ```
 

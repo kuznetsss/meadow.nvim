@@ -8,15 +8,16 @@ meadow.DEFAULT_OPTIONS = {
     lspsaga_colors = true,
     telescope_colors = true,
     spelunker_colors = true,
+    fixed_line_colors = true
 }
 
 meadow.options = nil
 
 function meadow.log(msg, hl)
     hl = hl or 'Normal'
-     vim.cmd('echohl ' .. hl)
-     vim.cmd('echomsg " meadow: ' .. msg .. '"')
-     vim.cmd('echohl None')
+    vim.cmd('echohl ' .. hl)
+    vim.cmd('echomsg " meadow: ' .. msg .. '"')
+    vim.cmd('echohl None')
 end
 
 function meadow.set_default_options()
@@ -272,7 +273,7 @@ meadow.SignifyColors = {
     SignifySignChange = { fg = c.Yellow[1], opt = 'bold' },
     SignifyLineAdd = { link = 'SignifySignAdd' },
     SignifyLineChange = { link = 'SignifyLineChange' },
-    SignifyLineChangeDelete   = { link = 'SignifyLineChange' },
+    SignifyLineChangeDelete = { link = 'SignifyLineChange' },
     SignifyLineDelete = { link = 'SignifySignDelete' },
     SignifyLineDeleteFirstLine = { link = 'SignifySignDelete' },
     SignifySignChangeDelete = { link = 'SignifyLineChange' },
@@ -315,7 +316,7 @@ meadow.LspSagaColors = {
 }
 
 meadow.TelescopeColors = {
-     -- selected item
+      -- selected item
     TelescopeSelection = { fg = c.Green[2], bg = c.GreyBg[1], opt = 'bold' },
      -- selection caret
     TelescopeSelectionCaret = { fg = c.Green[2], bg = c.GreyBg[1] },
@@ -339,6 +340,26 @@ meadow.TelescopeColors = {
 meadow.SpelunkerColors = {
     SpelunkerSpellBad = { link = 'SpellBad' },
     SpelunkerComplexOrCompoundWord = { link = 'SpellBad' }
+}
+
+meadow.FixedLineColors = {
+    FixedLineBackground = { link = 'StatusLine' },
+    FixedLineNormalMode = { bg = c.Green[1], opt = 'bold' },
+    FixedLineVisualMode = { bg = c.Blue[1], opt = 'bold' },
+    FixedLineInsertMode = { bg = c.Black[4], opt = 'bold' },
+    FixedLineReplaceMode = { bg = c.Red[1], opt = 'bold' },
+    FixedLineTerminalMode = { bg = c.Yellow[1], opt = 'bold' },
+    FixedLineCommandMode = { bg = c.Grey[1], opt = 'bold' },
+    FixedLineShellMode = { bg = c.Orange[1], opt = 'bold' },
+    FixedLineReadOnly = { fg = c.Red[2], bg = c.Black[1], opt = 'bold' },
+    FixedLineModifiable = { fg = c.Yellow[2], bg = c.Black[1], opt = 'bold' },
+    FixedLineModified = { fg = c.Green[1], bg = c.Black[1], opt = 'bold' },
+    FixedLineGitAdd = { fg = c.Green[1], bg = c.Black[1], opt = 'bold' },
+    FixedLineGitChange = { fg = c.Yellow[1], bg = c.Black[1], opt = 'bold' },
+    FixedLineGitDelete = { fg = c.Red[1], bg = c.Black[1], opt = 'bold' },
+    FixedLineBufNum = { fg = c.Blue[3], bg = c.Black[1], },
+    FixedLineFileType = { link = 'FixedLineBufNum' },
+    FixedLineProgress = { bg = c.Black[4] }
 }
 
 function meadow.set_highlights(colors)
@@ -383,6 +404,9 @@ function meadow.apply_colors(options)
     end
     if meadow.options.spelunker_colors then
         meadow.set_highlights(meadow.SpelunkerColors)
+    end
+    if meadow.options.fixed_line_colors then
+        meadow.set_highlights(meadow.FixedLineColors)
     end
 end
 
