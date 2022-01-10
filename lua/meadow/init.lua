@@ -359,7 +359,11 @@ meadow.FixedLineColors = {
     FixedLineGitDelete = { fg = c.Red[1], bg = c.Black[1], opt = 'bold' },
     FixedLineBufNum = { fg = c.Blue[3], bg = c.Black[1], },
     FixedLineFileType = { link = 'FixedLineBufNum' },
-    FixedLineProgress = { bg = c.Black[4] }
+    FixedLineProgress = { bg = c.Black[4] },
+    FixedLineLspWarning = { fg = c.Orange[1], bg = c.Black[1], opt = 'bold' },
+    FixedLineLspError = { fg = c.Red[1], bg = c.Black[1], opt = 'bold' },
+    FixedLineLspInfo = { fg = c.Blue[1], bg = c.Black[1], opt = 'bold' },
+    FixedLineLspHint = { fg = c.Blue[2], bg = c.Black[1], opt = 'bold' },
 }
 
 function meadow.set_highlights(colors)
