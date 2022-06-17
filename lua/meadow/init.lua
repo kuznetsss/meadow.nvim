@@ -11,7 +11,7 @@ meadow.DEFAULT_OPTIONS = {
     fixed_line_colors = true
 }
 
-meadow.options = vim.deepcopy(meadow.DEFAULT_OPTIONS)
+meadow.options = nil
 
 function meadow.log(msg, hl)
     hl = hl or 'Normal'
@@ -440,6 +440,9 @@ local function define_commands()
 end
 
 function meadow.setup(options)
+    if not meadow.options then
+        meadow.options = vim.deepcopy(meadow.DEFAULT_OPTIONS)
+    end
     if vim.fn.exists('syntax_on') then
         vim.api.nvim_command('syntax reset')
     end
