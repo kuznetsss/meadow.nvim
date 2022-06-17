@@ -409,21 +409,33 @@ function meadow.change_contrast(diff)
 end
 
 local function define_commands()
-    vim.cmd(
-        [[command! -nargs=1 MeadowChangeBrightness
-        \ lua require'meadow'.change_brightness(<args>)]]
+    vim.api.nvim_create_user_command(
+        'MeadowChangeBrightness',
+        function(params)
+            require'meadow'.change_brightness(params.args)
+        end,
+        {nargs = 1}
     )
-    vim.cmd(
-        [[command! -nargs=1 MeadowSetBrightness
-        \ lua require'meadow'.set_brightness(<args>)]]
+    vim.api.nvim_create_user_command(
+        'MeadowSetBrightness',
+        function(params)
+            require'meadow'.set_brightness(params.args)
+        end,
+        {nargs = 1}
     )
-    vim.cmd(
-        [[command! -nargs=1 MeadowChangeContrast
-        \ lua require'meadow'.change_contrast(<args>)]]
+    vim.api.nvim_create_user_command(
+        'MeadowChangeContrast',
+        function(params)
+            require'meadow'.change_contrast(params.args)
+        end,
+        {nargs = 1}
     )
-    vim.cmd(
-        [[command! -nargs=1 MeadowSetConstrast
-        \ lua require'meadow'.set_contrast(<args>)]]
+    vim.api.nvim_create_user_command(
+        'MeadowSetConstrast',
+        function(params)
+            require'meadow'.set_contrast(params.args)
+        end,
+        {nargs = 1}
     )
 end
 
