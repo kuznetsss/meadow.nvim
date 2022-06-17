@@ -11,7 +11,7 @@ meadow.DEFAULT_OPTIONS = {
     fixed_line_colors = true
 }
 
-meadow.options = nil
+meadow.options = vim.deepcopy(meadow.DEFAULT_OPTIONS)
 
 function meadow.log(msg, hl)
     hl = hl or 'Normal'
@@ -20,43 +20,19 @@ function meadow.log(msg, hl)
     vim.cmd('echohl None')
 end
 
-function meadow.set_default_options()
-    meadow.options = {}
-    for k, v in pairs(meadow.DEFAULT_OPTIONS) do
-        meadow.options[k] = v
-    end
-end
-
 local function fix_value(value)
     if value < 0 then return 0 end
     if value > 100 then return 100 end
     return value
 end
 
-local function copy(original_table)
-    local copy_table = {}
-    for k,v in pairs(original_table) do
-        copy_table[k] = v
-    end
-    return copy_table
-end
-
 function meadow.merge_options(options)
-    if not meadow.options then
-        meadow.set_default_options()
-    end
     if options then
         if type(options) ~= 'table' then
-            meadow.log('Options must be table', 'ErrorMsg')
+            meadow.log('Options must be a table', 'ErrorMsg')
             return false
         end
-        for k, v in pairs(options) do
-            if not meadow.DEFAULT_OPTIONS[k] then
-                meadow.log('Unknown option ' .. k, 'WarningMsg')
-            else
-                meadow.options[k] = v
-            end
-        end
+        meadow.options = vim.tbl_extend('force', meadow.options, options)
     end
     -- Check values range
     meadow.options.color_saturation = fix_value(meadow.options.color_saturation)
@@ -99,8 +75,6 @@ meadow.Colors = {
     Orange = { {35} },
     Pink = { {326} },
 }
-
-meadow.DEFAULT_HSV_COLORS = copy(meadow.Colors)
 
 meadow.StaticColors = { Black = true, GreyBg = true }
 
@@ -370,19 +344,18 @@ function meadow.set_highlights(colors)
     for group, options in pairs(colors) do
         local cmd = ''
         if options.link then
-            cmd = 'hi link ' .. group .. ' ' .. options.link
+            vim.api.nvim_set_hl(0, group, {link = options.link})
         else
             local fg =
                 meadow.hsv_to_rgb_hex(options.fg, meadow.ColorType.fg) or 'none'
             local bg =
                 meadow.hsv_to_rgb_hex(options.bg, meadow.ColorType.bg) or 'none'
-            local opt = options.opt or 'none'
-            cmd = 'hi! ' .. group ..
-                ' guifg= ' .. fg ..
-                ' guibg=' .. bg ..
-                ' gui=' .. opt
+            if options.opt then
+                vim.api.nvim_set_hl(0, group, {fg = fg, bg = bg, [options.opt] = true})
+            else
+                vim.api.nvim_set_hl(0, group, {fg = fg, bg = bg})
+            end
         end
-        vim.cmd(cmd)
     end
 end
 
@@ -390,7 +363,6 @@ function meadow.apply_colors(options)
     if not meadow.merge_options(options) then
         return
     end
-    meadow.Colors = copy(meadow.DEFAULT_HSV_COLORS)
     preprocess_colors()
 
     meadow.set_highlights(meadow.NvimColors)
