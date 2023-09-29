@@ -3,7 +3,7 @@ local M = {}
 local hsv_to_rgb_hex = require('meadow.convert_color').hsv_to_rgb_hex
 
 local initial_data = {
-  -- Value for each color (for grayscale hue and satureation are 0)
+  -- Value for each color (for grayscale hue and saturation are 0)
   grayscale_values = {
     black1 = 3,
     black2 = 14,
@@ -37,20 +37,17 @@ local scale_value = function(value, value_from_options)
 end
 
 M.generate_colors = function(options)
-  M.rgb = {
-    grayscale = {},
-    colors = {},
-  }
+  M.rgb = {}
 
   for name, value in initial_data.grayscale_values do
-    M.rgb.grayscale[name] =
+    M.rgb[name] =
         hsv_to_rgb_hex { 0, 0, scale_value(value, options.color_value) }
   end
   for name, hue in initial_data.grayscale_values do
-    M.rgb.colors[name] = hsv_to_rgb_hex {
+    M.rgb[name] = hsv_to_rgb_hex {
       hue,
       options.color_saturation,
-      scale_value(value, options.color_value),
+      options.color_value,
     }
   end
 end
