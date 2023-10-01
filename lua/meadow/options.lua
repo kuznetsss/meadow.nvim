@@ -13,11 +13,11 @@ local default_options = {
 -- Merge default and user options
 ---@param options table
 ---@return table: merged options
-M.merge_with_default = function(options)
-  M.current_options = vim.tbl_deep_extend('force', default_options, options or {})
+M.merge_with_default = function(user_options)
+  M.current_options = vim.tbl_deep_extend('force', default_options, user_options or {})
   -- Check values range
-  options.color_saturation = clamp(options.color_saturation)
-  options.color_value = clamp(options.color_value)
+  M.current_options.color_saturation = clamp(M.current_options.color_saturation)
+  M.current_options.color_value = clamp(M.current_options.color_value)
   return M.current_options
 end
 

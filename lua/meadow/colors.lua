@@ -1,8 +1,6 @@
 local M = {}
 
-local hsv_to_rgb_hex = require('meadow.convert_color').hsv_to_rgb_hex
-
-local initial_data = {
+local color_palette = {
   -- Value for each color (for grayscale hue and saturation are 0)
   grayscale_values = {
     black1 = 3,
@@ -28,28 +26,45 @@ local initial_data = {
     yellow1 = 65,
     yellow2 = 46,
     orange = 35,
-    pink = 326,
   },
 }
 
+---Scale value to the same range as value_from_options
+---@param value number: value to scale
+---@param value_from_options number: value from options
+---@return number: scaled value
 local scale_value = function(value, value_from_options)
   return value * value_from_options / 100
 end
 
+---Make background and foreground colors from hsv values
+---@param hue number: hue value
+---@param saturation number: saturation value
+---@param value number: value value
+---@param bg_is_darker boolean: if true, background color will be 2 times darker
+---@return table: { fg: string, bg: string } rgb colors
+local make_bg_and_fg = function(hue, saturation, value, bg_is_darker)
+  local hsv_to_rgb_hex = require('meadow.convert_color').hsv_to_rgb_hex
+  return {
+    fg = hsv_to_rgb_hex { hue, saturation, value },
+    bg = hsv_to_rgb_hex { hue, saturation, bg_is_darker and value / 2 or value},
+  }
+end
+
+---Return table with rgb colors where each color is a table with fg and bg rgb values
+---@param options table: table with color options
+---@return table: table with rgb colors
 M.generate_colors = function(options)
   M.rgb = {}
 
-  for name, value in initial_data.grayscale_values do
+  for name, value in pairs(color_palette.grayscale_values) do
+    M.rgb[name] = make_bg_and_fg(0, 0, scale_value(value, options.color_value), false)
+  end
+  for name, hue in pairs(color_palette.colors_hues) do
     M.rgb[name] =
-        hsv_to_rgb_hex { 0, 0, scale_value(value, options.color_value) }
+        make_bg_and_fg(hue, options.color_saturation, options.color_value, true)
   end
-  for name, hue in initial_data.grayscale_values do
-    M.rgb[name] = hsv_to_rgb_hex {
-      hue,
-      options.color_saturation,
-      options.color_value,
-    }
-  end
+  return M.rgb
 end
 
 return M

@@ -1,4 +1,4 @@
-# meadow-nvim
+# meadow.nvim
 
 A dark neovim colorscheme based on
 [HSV](https://en.wikipedia.org/wiki/HSL_and_HSV) colors.
