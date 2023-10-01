@@ -281,21 +281,28 @@ local make_highlights = function(c)
     -- ["@lsp.typemod.variable.globalScope"] (global variables)
 
     -- Markdown
-    ['@text.title.1.markdown'] = {},
-    ['@text.title.2.markdown'] = { fg = c.green2, bold = true },
-    ['@text.title.3.markdown'] = {},
-    ['@text.title.4.markdown'] = {},
-    ['@text.title.5.markdown'] = {},
-    ['@text.title.6.markdown'] = {},
+    ['@text.title.1.markdown'] = { fg = c.green1, bold = true },
+    ['@text.title.2.markdown'] = { fg = c.yellow2, bold = true },
+    ['@text.title.3.markdown'] = {  fg = c.green2, bold = true },
+    ['@text.title.4.markdown'] = {  fg = c.yellow1, bold = true },
+    ['@text.title.5.markdown'] = {  fg = c.orange, bold = true },
+    ['@text.title.6.markdown'] = {  fg = c.red1, bold = true },
 
+    RainbowRed = { fg = c.red1 },
+    RainbowYellow = {fg = c.yellow1 },
+    RainbowBlue = {fg = c.blue1},
+    RainbowOrange = {fg = c.orange},
+    RainbowGreen = {fg = c.green1},
+    RainbowViolet = {fg = c.violet},
+    RainbowCyan = {fg = c.blue3},
     -- rainbow-delimiters
-    RainbowDelimiterRed = {},
-    RainbowDelimiterOrange = {},
-    RainbowDelimiterYellow = {},
-    RainbowDelimiterGreen = {},
-    RainbowDelimiterBlue = {},
-    RainbowDelimiterViolet = {},
-    RainbowDelimiterCyan = {},
+    RainbowDelimiterRed = { link = 'RainbowRed' },
+    RainbowDelimiterOrange = { link = 'RainbowOrange' },
+    RainbowDelimiterYellow = { link = 'RainbowYellow' },
+    RainbowDelimiterGreen = { link = 'RainbowGreen' },
+    RainbowDelimiterBlue = { link = 'RainbowBlue' },
+    RainbowDelimiterViolet = { link = 'RainbowViolet' },
+    RainbowDelimiterCyan = { link = 'RainbowCyan' },
 
     -- diff
     diffAdded = {},
