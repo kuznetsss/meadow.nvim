@@ -4,7 +4,7 @@ local make_highlights = function(c)
   -- The list of higlights and comments are taken from https://github.com/folke/tokyonight.nvim
   local highlights = {
     Comment = { fg = c.grey }, -- any comment
-    ColorColumn = { bg = c.black4 }, -- used for the columns set with 'colorcolumn'
+    ColorColumn = { bg = c.grey_bg1 }, -- used for the columns set with 'colorcolumn'
     Conceal = { fg = c.white, bg = c.grey }, -- placeholder characters substituted for concealed text (see 'conceallevel')
     Cursor = { reverse = true }, -- character under the cursor
     lCursor = { link = 'Cursor' }, -- the character under the cursor when |language-mapping| is used (see 'guicursor')
@@ -167,12 +167,11 @@ local make_highlights = function(c)
     DiagnosticUnderlineInfo = { link = 'DiagnosticInfo' }, -- Used to underline "Information" diagnostics
     DiagnosticUnderlineHint = { link = 'DiagnosticHint' }, -- Used to underline "Hint" diagnostics
 
-    LspSignatureActiveParameter = {},
-    LspCodeLens = {},
+    LspSignatureActiveParameter = { bg = c.green2, bold = true},
+    LspCodeLens = { fg = c.grey, bg = c.yellow2 },
     LspInlayHint = {},
 
-
-    DapStoppedLine = {}, -- Used for "Warning" diagnostic virtual text
+    DapStoppedLine = { bg = c.blue1 }, -- Used for "Warning" diagnostic virtual text
 
     -- These groups are for the Neovim tree-sitter highlights.
     -- As of writing, tree-sitter support is a WIP, group names may change.
@@ -189,12 +188,12 @@ local make_highlights = function(c)
     ['@punctuation.special.markdown'] = { link = 'Special' },
 
     --- Literals
-    ['@string.documentation'] = {},
+    ['@string.documentation'] = { link = 'Comment' },
     ['@string.regex'] = {}, -- For regexes.
     ['@string.escape'] = { bg = c.green2 }, -- For escape characters within a string.
 
     --- Functions
-    ['@constructor'] = {}, -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
+    ['@constructor'] = { fg = c.green2, bold = true }, -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
     ['@parameter'] = { fg = c.yellow1, italic = true }, -- For parameters of a function.
     ['@parameter.builtin'] = { link = '@parameter'}, -- For builtin parameters of a function, e.g. "..." or Smali's p[1-99]
 
@@ -207,9 +206,9 @@ local make_highlights = function(c)
     ['@label'] = { link = 'Statement' }, -- For labels: `label:` in C and `:label:` in Lua.
 
     --- Types
-    ['@type.builtin'] = {},
-    ['@field'] = { italic = true }, -- For fields.
-    ['@property'] = {},
+    ['@type.builtin'] = { fg = c.green1 },
+    ['@field'] = { link = 'Identifier', italic = true }, -- For fields.
+    ['@property'] = { link = '@field' },
 
     --- Identifiers
     ['@variable'] = { fg = c.white }, -- Any variable name that does not have another highlight.
@@ -218,15 +217,17 @@ local make_highlights = function(c)
     --- Text
     -- ["@text.literal.markdown"] = {},
     ['@text.literal.markdown_inline'] = {},
-    ['@text.reference'] = {},
+    ['@text.reference'] = { fg = c.blue1, underline = true },
 
-    ['@text.todo.unchecked'] = {}, -- For brackets and parens.
-    ['@text.todo.checked'] = {}, -- For brackets and parens.
-    ['@text.warning'] = {},
-    ['@text.danger'] = {},
+    -- TODO: test
+    ['@text.todo'] = { link = 'Todo' }, -- For brackets and parens.
+    ['@text.todo.unchecked'] = { fg = c.yellow2 }, -- For brackets and parens.
+    ['@text.todo.checked'] = { fg = c.green1 }, -- For brackets and parens.
+    ['@text.warning'] = { bg = c.yellow2 },
+    ['@text.danger'] = { bg = c.red2 },
 
-    ['@text.diff.add'] = {},
-    ['@text.diff.delete'] = {},
+    ['@text.diff.add'] = { bg = c.green2 },
+    ['@text.diff.delete'] = { bg = c.red2 },
 
     ['@namespace'] = { fg = c.blue3 },
 
@@ -295,6 +296,7 @@ local make_highlights = function(c)
     RainbowGreen = {fg = c.green1},
     RainbowViolet = {fg = c.violet},
     RainbowCyan = {fg = c.blue3},
+
     -- rainbow-delimiters
     RainbowDelimiterRed = { link = 'RainbowRed' },
     RainbowDelimiterOrange = { link = 'RainbowOrange' },
@@ -305,77 +307,70 @@ local make_highlights = function(c)
     RainbowDelimiterCyan = { link = 'RainbowCyan' },
 
     -- diff
-    diffAdded = {},
-    diffRemoved = {},
-    diffChanged = {},
-    diffOldFile = {},
-    diffNewFile = {},
+    diffAdded = { bg = c.green2 },
+    diffRemoved = { bg = c.red1 },
+    diffChanged = { bg = c.yellow1 },
+    diffOldFile = { link = 'diffRemoved' },
+    diffNewFile = { link = 'diffAdded' },
     diffFile = {},
     diffLine = {},
     diffIndexLine = {},
 
     -- Neogit
-    NeogitBranch = {},
-    NeogitRemote = {},
-    NeogitHunkHeader = {},
+    NeogitBranch = { fg = c.green1, bold = true },
+    NeogitRemote = { fg = c.green2, bold = true },
+    NeogitHunkHeader = { fg = c.blue1, bold = true },
     NeogitHunkHeaderHighlight = {},
     NeogitDiffContextHighlight = {},
-    NeogitDiffDeleteHighlight = {},
-    NeogitDiffAddHighlight = {},
-
-    -- GitGutter
-    GitGutterAdd = {}, -- diff mode: Added line |diff.txt|
-    GitGutterChange = {}, -- diff mode: Changed line |diff.txt|
-    GitGutterDelete = {}, -- diff mode: Deleted line |diff.txt|
-    GitGutterAddLineNr = {},
-    GitGutterChangeLineNr = {},
-    GitGutterDeleteLineNr = {},
+    NeogitDiffDeleteHighlight = { link = 'diffRemoved' },
+    NeogitDiffAddHighlight = { link = 'diffAdded' },
 
     -- GitSigns
-    GitSignsAdd = {}, -- diff mode: Added line |diff.txt|
-    GitSignsChange = {}, -- diff mode: Changed line |diff.txt|
-    GitSignsDelete = {}, -- diff mode: Deleted line |diff.txt|
+    GitSignsAdd = { fg = c.green1 }, -- diff mode: Added line |diff.txt|
+    GitSignsChange = { fg = c.yellow1 }, -- diff mode: Changed line |diff.txt|
+    GitSignsDelete = { fg = c.red1 }, -- diff mode: Deleted line |diff.txt|
 
     -- Telescope
-    TelescopeBorder = {},
-    TelescopeNormal = {},
+    TelescopeBorder = { fg = c.grey },
+    TelescopeNormal = { link = 'Normal' },
+    TelescopeSelection = { link = 'CursorLine' },
 
     -- NvimTree
-    NvimTreeNormal = {},
-    NvimTreeWinSeparator = {},
-    NvimTreeNormalNC = {},
-    NvimTreeRootFolder = {},
-    NvimTreeGitDirty = {},
-    NvimTreeGitNew = {},
-    NvimTreeGitDeleted = {},
-    NvimTreeOpenedFile = {},
-    NvimTreeSpecialFile = {},
-    NvimTreeIndentMarker = {},
-    NvimTreeImageFile = {},
-    NvimTreeSymlink = {},
-    NvimTreeFolderIcon = {},
+    -- NvimTreeNormal = {},
+    -- NvimTreeWinSeparator = {},
+    -- NvimTreeNormalNC = {},
+    -- NvimTreeRootFolder = {},
+    -- NvimTreeGitDirty = {},
+    -- NvimTreeGitNew = {},
+    -- NvimTreeGitDeleted = {},
+    -- NvimTreeOpenedFile = {},
+    -- NvimTreeSpecialFile = {},
+    -- NvimTreeIndentMarker = {},
+    -- NvimTreeImageFile = {},
+    -- NvimTreeSymlink = {},
+    -- NvimTreeFolderIcon = {},
     -- NvimTreeFolderName= {},
 
     -- Alpha
-    AlphaShortcut = {},
-    AlphaHeader = {},
-    AlphaHeaderLabel = {},
-    AlphaFooter = {},
-    AlphaButtons = {},
+    -- AlphaShortcut = {},
+    -- AlphaHeader = {},
+    -- AlphaHeaderLabel = {},
+    -- AlphaFooter = {},
+    -- AlphaButtons = {},
 
     -- WhichKey
-    WhichKey = {},
-    WhichKeyGroup = {},
-    WhichKeyDesc = {},
-    WhichKeySeperator = {},
-    WhichKeySeparator = {},
-    WhichKeyFloat = {},
-    WhichKeyValue = {},
+    -- WhichKey = {},
+    -- WhichKeyGroup = {},
+    -- WhichKeyDesc = {},
+    -- WhichKeySeperator = {},
+    -- WhichKeySeparator = {},
+    -- WhichKeyFloat = {},
+    -- WhichKeyValue = {},
 
     -- NeoVim
-    healthError = {},
-    healthSuccess = {},
-    healthWarning = {},
+    -- healthError = {},
+    -- healthSuccess = {},
+    -- healthWarning = {},
 
     -- Cmp
     CmpDocumentation = {},
@@ -454,6 +449,9 @@ local make_highlights = function(c)
     NoiceCompletionItemKindSnippet = {},
 
     TreesitterContext = {},
+    IblWhitespace = { fg = c.grey_bg1 },
+    IblIndent = { fg = c.grey_bg1 },
+    IblScope = { link = 'Comment' },
     Hlargs = {},
     -- TreesitterContext = {},
   }
@@ -477,12 +475,21 @@ local make_highlights = function(c)
   return highlights
 end
 
+local unwrapOptions = function(options)
+  if type(options.fg) == 'table' then
+    options.fg = options.fg.fg
+  end
+  if type(options.bg) == 'table' then
+    options.bg = options.bg.bg
+  end
+  return options
+end
+
 local apply_highlights = function(highlights)
   vim.cmd.highlight 'clear'
   for group, options in pairs(highlights) do
     if not vim.tbl_isempty(options) then
-      options.fg = options.fg and options.fg.fg or nil
-      options.bg = options.bg and options.bg.bg or nil
+      options = unwrapOptions(options)
       vim.api.nvim_set_hl(0, group, options)
     end
   end
