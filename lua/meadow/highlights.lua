@@ -3,69 +3,69 @@ local M = {}
 local make_highlights = function(c)
   -- The list of higlights and comments are taken from https://github.com/folke/tokyonight.nvim
   local highlights = {
-    Comment = { fg = c.grey }, -- any comment
-    ColorColumn = { bg = c.grey_bg1 }, -- used for the columns set with 'colorcolumn'
+    Comment = { fg = c.grey },               -- any comment
+    ColorColumn = { bg = c.grey_bg1 },       -- used for the columns set with 'colorcolumn'
     Conceal = { fg = c.white, bg = c.grey }, -- placeholder characters substituted for concealed text (see 'conceallevel')
-    Cursor = { reverse = true }, -- character under the cursor
-    lCursor = { link = 'Cursor' }, -- the character under the cursor when |language-mapping| is used (see 'guicursor')
-    CursorIM = { link = 'Cursor' }, -- like Cursor, but used when in IME mode |CursorIM|
+    Cursor = { reverse = true },             -- character under the cursor
+    lCursor = { link = 'Cursor' },           -- the character under the cursor when |language-mapping| is used (see 'guicursor')
+    CursorIM = { link = 'Cursor' },          -- like Cursor, but used when in IME mode |CursorIM|
     CursorColumn = { link = 'ColorColumn' }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-    CursorLine = { link = 'CursorColumn' }, -- Screen-line at the cursor, when 'cursorline' is set.  Low-priority if foreground (ctermfg OR guifg) is not set.
-    Directory = { fg = c.blue1 }, -- directory names (and other special names in listings)
-    DiffAdd = { fg = c.green2 }, -- diff mode: Added line |diff.txt|
-    DiffChange = { fg = c.yellow1 }, -- diff mode: Changed line |diff.txt|
-    DiffDelete = { fg = c.red1 }, -- d:f mode: Deleted line |diff.txt|
-    DiffText = { fg = c.yellow1 }, -- diff mode: Changed text within a changed line |diff.txt|
-    EndOfBuffer = { link = 'Normal' }, -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
+    CursorLine = { link = 'CursorColumn' },  -- Screen-line at the cursor, when 'cursorline' is set.  Low-priority if foreground (ctermfg OR guifg) is not set.
+    Directory = { fg = c.blue1 },            -- directory names (and other special names in listings)
+    DiffAdd = { fg = c.green2 },             -- diff mode: Added line |diff.txt|
+    DiffChange = { fg = c.yellow1 },         -- diff mode: Changed line |diff.txt|
+    DiffDelete = { fg = c.red1 },            -- d:f mode: Deleted line |diff.txt|
+    DiffText = { fg = c.yellow1 },           -- diff mode: Changed text within a changed line |diff.txt|
+    EndOfBuffer = { link = 'Normal' },       -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
     -- TermCursor  = {}, -- cursor in a focused terminal
     -- TermCursorNC= {}, -- cursor in an unfocused terminal
-    ErrorMsg = { fg = c.red1, bg = c.black1 }, -- error messages on the command line
-    VertSplit = { fg = c.grey }, -- the column separating vertically split windows
-    WinSeparator = { fg = c.grey }, -- the column separating vertically split windows
-    Folded = { bg = c.grey_bg2 }, -- line used for closed folds
-    FoldColumn = { bg = c.grey_bg2 }, -- 'foldcolumn'
-    SignColumn = { bg = c.black3 }, -- column where |signs| are displayed
-    SignColumnSB = { fg = c.violet }, -- column where |signs| are displayed
-    Substitute = { bg = c.yellow2 }, -- |:substitute| replacement text highlighting
-    LineNr = { fg = c.grey, bg = c.black3 }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+    ErrorMsg = { fg = c.red1, bg = c.black1 },                     -- error messages on the command line
+    VertSplit = { fg = c.grey },                                   -- the column separating vertically split windows
+    WinSeparator = { fg = c.grey },                                -- the column separating vertically split windows
+    Folded = { bg = c.grey_bg2 },                                  -- line used for closed folds
+    FoldColumn = { bg = c.grey_bg2 },                              -- 'foldcolumn'
+    SignColumn = { bg = c.black3 },                                -- column where |signs| are displayed
+    SignColumnSB = { fg = c.violet },                              -- column where |signs| are displayed
+    Substitute = { bg = c.yellow2 },                               -- |:substitute| replacement text highlighting
+    LineNr = { fg = c.grey, bg = c.black3 },                       -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
     CursorLineNr = { fg = c.yellow1, bg = c.black3, bold = true }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-    MatchParen = { bg = c.yellow1, bold = true }, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
-    ModeMsg = { link = 'Normal' }, -- 'showmode' message (e.g., "-- INSERT -- ")
-    MsgArea = { link = 'Normal' }, -- Area for messages and cmdline
+    MatchParen = { bg = c.yellow1, bold = true },                  -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+    ModeMsg = { link = 'Normal' },                                 -- 'showmode' message (e.g., "-- INSERT -- ")
+    MsgArea = { link = 'Normal' },                                 -- Area for messages and cmdline
     -- MsgSeparator= {}, -- Separator for scrolled messages, `msgsep` flag of 'display'
-    MoreMsg = { fg = c.green2 }, -- |more-prompt|
-    NonText = { fg = c.grey }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    Normal = { fg = c.white, bg = c.black3 }, -- normal text
-    NormalNC = { link = 'Normal' }, -- normal text in non-current windows
-    NormalSB = { link = 'Normal' }, -- normal text in sidebar
-    NormalFloat = { fg = c.white, bg = c.black4 }, -- Normal text in floating windows.
+    MoreMsg = { fg = c.green2 },                                   -- |more-prompt|
+    NonText = { fg = c.grey },                                     -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
+    Normal = { fg = c.white, bg = c.black3 },                      -- normal text
+    NormalNC = { link = 'Normal' },                                -- normal text in non-current windows
+    NormalSB = { link = 'Normal' },                                -- normal text in sidebar
+    NormalFloat = { fg = c.white, bg = c.black4 },                 -- Normal text in floating windows.
     FloatBorder = { fg = c.grey, bg = c.black4 },
-    FloatTitle = {fg = c.green2, bg = c.black4, bold = true},
-    Pmenu = { fg = c.white, bg = c.grey_bg1 }, -- Popup menu: normal item. menu
+    FloatTitle = { fg = c.green2, bg = c.black4, bold = true },
+    Pmenu = { fg = c.white, bg = c.grey_bg1 },                  -- Popup menu: normal item. menu
     PmenuSel = { fg = c.green2, bg = c.grey_bg2, bold = true }, -- Popup menu: selected item.
-    PmenuSbar = { bg = c.grey_bg2 }, -- Popup menu: scrollbar.
-    PmenuThumb = { bg = c.white }, -- Popup menu: Thumb of the scrollbar.
-    Question = { link = 'MoreMsg' }, -- |hit-enter| prompt and yes/no questions
-    QuickFixLine = { bold = true }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-    Search = { bg = c.violet }, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
-    IncSearch = { link = 'Search' }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
+    PmenuSbar = { bg = c.grey_bg2 },                            -- Popup menu: scrollbar.
+    PmenuThumb = { bg = c.white },                              -- Popup menu: Thumb of the scrollbar.
+    Question = { link = 'MoreMsg' },                            -- |hit-enter| prompt and yes/no questions
+    QuickFixLine = { bold = true },                             -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
+    Search = { bg = c.violet },                                 -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
+    IncSearch = { link = 'Search' },                            -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
     CurSearch = {},
-    SpecialKey = { fg = c.grey }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
-    SpellBad = { underline = true }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
-    SpellCap = { link = 'SpellBad' }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
-    SpellLocal = { link = 'SpellBad' }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
-    SpellRare = { link = 'SpellBad' }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
-    StatusLine = { fg = c.white, bg = c.black2 }, -- status line of current window
-    StatusLineNC = { fg = c.grey_bg1, bg = c.black2 }, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
-    TabLine = { fg = c.white, bg = c.black4 }, -- tab pages line, not active tab page label
-    TabLineFill = { fg = c.green2, bg = c.black4 }, -- tab pages line, where there are no labels
-    TabLineSel = { fg = c.green2, bold = true }, -- tab pages line, active tab page label
-    Title = { fg = c.green2, bold = true }, -- titles for output from ":set all", ":autocmd" etc.
-    Visual = { bg = c.violet }, -- Visual mode selection
-    VisualNOS = { link = 'Visual' }, -- Visual mode selection when vim is "Not Owning the Selection".
-    WarningMsg = { bg = c.yellow1 }, -- warning messages
-    Whitespace = { fg = c.white, bg = c.orange }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
-    WildMenu = { link = 'PmenuSel' }, -- current match in 'wildmenu' completion
+    SpecialKey = { fg = c.grey },                               -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
+    SpellBad = { underline = true },                            -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
+    SpellCap = { link = 'SpellBad' },                           -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
+    SpellLocal = { link = 'SpellBad' },                         -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
+    SpellRare = { link = 'SpellBad' },                          -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
+    StatusLine = { fg = c.white, bg = c.black2 },               -- status line of current window
+    StatusLineNC = { fg = c.grey_bg1, bg = c.black2 },          -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+    TabLine = { fg = c.white, bg = c.black4 },                  -- tab pages line, not active tab page label
+    TabLineFill = { fg = c.green2, bg = c.black4 },             -- tab pages line, where there are no labels
+    TabLineSel = { fg = c.green2, bold = true },                -- tab pages line, active tab page label
+    Title = { fg = c.green2, bold = true },                     -- titles for output from ":set all", ":autocmd" etc.
+    Visual = { bg = c.violet },                                 -- Visual mode selection
+    VisualNOS = { link = 'Visual' },                            -- Visual mode selection when vim is "Not Owning the Selection".
+    WarningMsg = { bg = c.yellow1 },                            -- warning messages
+    Whitespace = { fg = c.white, bg = c.orange },               -- "nbsp", "space", "tab" and "trail" in 'listchars'
+    WildMenu = { link = 'PmenuSel' },                           -- current match in 'wildmenu' completion
 
     -- These groups are not listed as default vim groups,
     -- but they are defacto standard group names for syntax highlighting.
@@ -73,22 +73,22 @@ local make_highlights = function(c)
     -- default,
     -- Uncomment and edit if you want more specific syntax highlighting.
 
-    Constant = { fg = c.red1 }, -- (preferred) any constant
+    Constant = { fg = c.red1 },                -- (preferred) any constant
     String = { fg = c.green1, italic = true }, --   a string constant: "this is a string"
-    Character = { link = 'String' }, --  a character constant: 'c', '\n'
+    Character = { link = 'String' },           --  a character constant: 'c', '\n'
     -- Number        = {}, --   a number constant: 234, 0xff
     -- Boolean       = {}, --  a boolean constant: TRUE, false
     -- Float         = {}, --    a floating point constant: 2.3e10
 
     Identifier = { fg = c.yellow2, italic = true }, -- (preferred) any variable name
-    Function = { fg = c.green1, bold = true }, -- function name (also: methods for classes)
+    Function = { fg = c.green1, bold = true },      -- function name (also: methods for classes)
 
-    Statement = { fg = c.blue1 }, -- (preferred) any statement
+    Statement = { fg = c.blue1 },                   -- (preferred) any statement
     -- Conditional   = {}, --  if, then, else, endif, switch, etc.
     -- Repeat        = {}, --   for, do, while, etc.
     -- Label         = {}, --    case, default, etc.
     Operator = { fg = c.blue3 }, -- "sizeof", "+", "*", etc.
-    Keyword = { fg = c.blue3 }, --  any other keyword
+    Keyword = { fg = c.blue3 },  --  any other keyword
     -- Exception     = {}, --  try, catch, throw
 
     PreProc = { fg = c.blue1 }, -- (preferred) generic Preprocessor
@@ -107,7 +107,7 @@ local make_highlights = function(c)
     -- Tag           = {}, --    you can use CTRL-] on this
     -- Delimiter     = {}, --  character that needs attention
     -- SpecialComment= {}, -- special things inside a comment
-    Debug = { bg = c.red2 }, --    debugging statements
+    Debug = { bg = c.red2 },                         --    debugging statements
 
     Underlined = { fg = c.blue1, underline = true }, -- (preferred) text that stands out, HTML links
     Bold = { bold = true },
@@ -116,7 +116,7 @@ local make_highlights = function(c)
     -- ("Ignore", below, may be invisible...)
     -- Ignore = {}, -- (preferred) left blank, hidden  |hl-Ignore|
 
-    Error = { fg = c.red1 }, -- (preferred) any erroneous construct
+    Error = { fg = c.red1 },   -- (preferred) any erroneous construct
     Todo = { fg = c.yellow1 }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
     qfLineNr = { fg = c.blue2 },
@@ -147,27 +147,27 @@ local make_highlights = function(c)
     -- These groups are for the native LSP client. Some other LSP clients may
     -- use these groups, or use their own. Consult your LSP client's
     -- documentation.
-    LspReferenceText = { fg = c.blue1 }, -- used for highlighting "text" references
-    LspReferenceRead = { link = 'LspReferenceText' }, -- used for highlighting "read" references
-    LspReferenceWrite = { link = 'LspReferenceText' }, -- used for highlighting "write" references
+    LspReferenceText = { fg = c.blue1 },                       -- used for highlighting "text" references
+    LspReferenceRead = { link = 'LspReferenceText' },          -- used for highlighting "read" references
+    LspReferenceWrite = { link = 'LspReferenceText' },         -- used for highlighting "write" references
 
-    DiagnosticError = { fg = c.red1 }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-    DiagnosticWarn = { fg = c.orange }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-    DiagnosticInfo = { fg = c.blue1 }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-    DiagnosticHint = { fg = c.blue2 }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-    DiagnosticUnnecessary = { fg = c.grey }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+    DiagnosticError = { fg = c.red1 },                         -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+    DiagnosticWarn = { fg = c.orange },                        -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+    DiagnosticInfo = { fg = c.blue1 },                         -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+    DiagnosticHint = { fg = c.blue2 },                         -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+    DiagnosticUnnecessary = { fg = c.grey },                   -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 
     DiagnosticVirtualTextError = { link = 'DiagnosticError' }, -- Used for "Error" diagnostic virtual text
-    DiagnosticVirtualTextWarn = { link = 'DiagnosticWarn' }, -- Used for "Warning" diagnostic virtual text
-    DiagnosticVirtualTextInfo = { link = 'DiagnosticInfo' }, -- Used for "Information" diagnostic virtual text
-    DiagnosticVirtualTextHint = { link = 'DiagnosticHint' }, -- Used for "Hint" diagnostic virtual text
+    DiagnosticVirtualTextWarn = { link = 'DiagnosticWarn' },   -- Used for "Warning" diagnostic virtual text
+    DiagnosticVirtualTextInfo = { link = 'DiagnosticInfo' },   -- Used for "Information" diagnostic virtual text
+    DiagnosticVirtualTextHint = { link = 'DiagnosticHint' },   -- Used for "Hint" diagnostic virtual text
 
-    DiagnosticUnderlineError = { link = 'DiagnosticError' }, -- Used to underline "Error" diagnostics
-    DiagnosticUnderlineWarn = { link = 'DiagnosticWarn' }, -- Used to underline "Warning" diagnostics
-    DiagnosticUnderlineInfo = { link = 'DiagnosticInfo' }, -- Used to underline "Information" diagnostics
-    DiagnosticUnderlineHint = { link = 'DiagnosticHint' }, -- Used to underline "Hint" diagnostics
+    DiagnosticUnderlineError = { link = 'DiagnosticError' },   -- Used to underline "Error" diagnostics
+    DiagnosticUnderlineWarn = { link = 'DiagnosticWarn' },     -- Used to underline "Warning" diagnostics
+    DiagnosticUnderlineInfo = { link = 'DiagnosticInfo' },     -- Used to underline "Information" diagnostics
+    DiagnosticUnderlineHint = { link = 'DiagnosticHint' },     -- Used to underline "Hint" diagnostics
 
-    LspSignatureActiveParameter = { bg = c.green2, bold = true},
+    LspSignatureActiveParameter = { bg = c.green2, bold = true },
     LspCodeLens = { fg = c.grey, bg = c.yellow2 },
     LspInlayHint = {},
 
@@ -183,19 +183,19 @@ local make_highlights = function(c)
 
     --- Punctuation
     ['@punctuation.delimiter'] = { link = 'Special' }, -- For delimiters ie: `.`
-    ['@punctuation.bracket'] = { link = 'Special' }, -- For brackets and parens.
-    ['@punctuation.special'] = { link = 'Special' }, -- For special punctutation that does not fall in the catagories before.
+    ['@punctuation.bracket'] = { link = 'Special' },   -- For brackets and parens.
+    ['@punctuation.special'] = { link = 'Special' },   -- For special punctutation that does not fall in the catagories before.
     ['@punctuation.special.markdown'] = { link = 'Special' },
 
     --- Literals
     ['@string.documentation'] = { link = 'Comment' },
-    ['@string.regex'] = {}, -- For regexes.
+    ['@string.regex'] = {},                 -- For regexes.
     ['@string.escape'] = { bg = c.green2 }, -- For escape characters within a string.
 
     --- Functions
-    ['@constructor'] = { fg = c.green2, bold = true }, -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
+    ['@constructor'] = { fg = c.green2, bold = true },  -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
     ['@parameter'] = { fg = c.yellow1, italic = true }, -- For parameters of a function.
-    ['@parameter.builtin'] = { link = '@parameter'}, -- For builtin parameters of a function, e.g. "..." or Smali's p[1-99]
+    ['@parameter.builtin'] = { link = '@parameter' },   -- For builtin parameters of a function, e.g. "..." or Smali's p[1-99]
 
     --- Keywords
     ['@keyword'] = { fg = c.blue3 }, -- For keywords that don't fall in previous categories.
@@ -203,7 +203,7 @@ local make_highlights = function(c)
     -- ["@keyword.coroutine"] = {}, -- For keywords related to coroutines.
     ['@keyword.function'] = { link = '@keyword' }, -- For keywords used to define a fuction.
 
-    ['@label'] = { link = 'Statement' }, -- For labels: `label:` in C and `:label:` in Lua.
+    ['@label'] = { link = 'Statement' },           -- For labels: `label:` in C and `:label:` in Lua.
 
     --- Types
     ['@type.builtin'] = { fg = c.green1 },
@@ -211,7 +211,7 @@ local make_highlights = function(c)
     ['@property'] = { link = '@field' },
 
     --- Identifiers
-    ['@variable'] = { fg = c.white }, -- Any variable name that does not have another highlight.
+    ['@variable'] = { fg = c.white },           -- Any variable name that does not have another highlight.
     ['@variable.builtin'] = { fg = c.yellow1 }, -- Variable names that are defined by the languages, like `this` or `self`.
 
     --- Text
@@ -220,9 +220,9 @@ local make_highlights = function(c)
     ['@text.reference'] = { fg = c.blue1, underline = true },
 
     -- TODO: test
-    ['@text.todo'] = { link = 'Todo' }, -- For brackets and parens.
+    ['@text.todo'] = { link = 'Todo' },            -- For brackets and parens.
     ['@text.todo.unchecked'] = { fg = c.yellow2 }, -- For brackets and parens.
-    ['@text.todo.checked'] = { fg = c.green1 }, -- For brackets and parens.
+    ['@text.todo.checked'] = { fg = c.green1 },    -- For brackets and parens.
     ['@text.warning'] = { bg = c.yellow2 },
     ['@text.danger'] = { bg = c.red2 },
 
@@ -237,65 +237,65 @@ local make_highlights = function(c)
     ['@tag.delimiter.tsx'] = {},
 
     -- LSP Semantic Token Groups
-    ["@lsp.type.boolean"] = { link = "@boolean" },
-    ["@lsp.type.builtinType"] = { link = "@type.builtin" },
-    ["@lsp.type.comment"] = { link = "@comment" },
-    ["@lsp.type.decorator"] = { link = "@attribute" },
-    ["@lsp.type.deriveHelper"] = { link = "@attribute" },
-    ["@lsp.type.enum"] = { link = "@type" },
-    ["@lsp.type.enumMember"] = { link = "@constant" },
-    ["@lsp.type.escapeSequence"] = { link = "@string.escape" },
-    ["@lsp.type.formatSpecifier"] = { link = "@punctuation.special" },
-    ["@lsp.type.generic"] = { link = "@variable" },
-    ["@lsp.type.interface"] = { link = "Class" },
-    ["@lsp.type.keyword"] = { link = "@keyword" },
-    ["@lsp.type.lifetime"] = { link = "@storageclass" },
-    ["@lsp.type.namespace"] = { link = "@namespace" },
-    ["@lsp.type.number"] = { link = "@number" },
-    ["@lsp.type.operator"] = { link = "@operator" },
-    ["@lsp.type.parameter"] = { link = "@parameter" },
-    ["@lsp.type.property"] = { link = "@property" },
-    ["@lsp.type.selfKeyword"] = { link = "@variable.builtin" },
-    ["@lsp.type.selfTypeKeyword"] = { link = "@variable.builtin" },
-    ["@lsp.type.string"] = { link = "@string" },
-    ["@lsp.type.typeAlias"] = { link = "@type.definition" },
-    ["@lsp.type.unresolvedReference"] = { fg = c.red2, undercurl = true },
-    ["@lsp.type.variable"] = { link = "@variable"}, -- use treesitter styles for regular variables
-    ["@lsp.typemod.class.defaultLibrary"] = { link = "@type.builtin" },
-    ["@lsp.typemod.enum.defaultLibrary"] = { link = "@type.builtin" },
-    ["@lsp.typemod.enumMember.defaultLibrary"] = { link = "@constant.builtin" },
-    ["@lsp.typemod.function.defaultLibrary"] = { link = "@function.builtin" },
-    ["@lsp.typemod.keyword.async"] = { link = "@keyword.coroutine" },
-    ["@lsp.typemod.keyword.injected"] = { link = "@keyword" },
-    ["@lsp.typemod.macro.defaultLibrary"] = { link = "@function.builtin" },
-    ["@lsp.typemod.method.defaultLibrary"] = { link = "@function.builtin" },
-    ["@lsp.typemod.operator.injected"] = { link = "@operator" },
-    ["@lsp.typemod.string.injected"] = { link = "@string" },
-    ["@lsp.typemod.struct.defaultLibrary"] = { link = "@type.builtin" },
-    ["@lsp.typemod.type.defaultLibrary"] = { link = "@type.builtin" },
-    ["@lsp.typemod.typeAlias.defaultLibrary"] = { link = "Type" },
-    ["@lsp.typemod.variable.callable"] = { link = "@function" },
-    ["@lsp.typemod.variable.defaultLibrary"] = { link = "@variable.builtin" },
-    ["@lsp.typemod.variable.injected"] = { link = "@variable" },
-    ["@lsp.typemod.variable.static"] = { link = "@constant" },
+    ['@lsp.type.boolean'] = { link = '@boolean' },
+    ['@lsp.type.builtinType'] = { link = '@type.builtin' },
+    ['@lsp.type.comment'] = { link = '@comment' },
+    ['@lsp.type.decorator'] = { link = '@attribute' },
+    ['@lsp.type.deriveHelper'] = { link = '@attribute' },
+    ['@lsp.type.enum'] = { link = '@type' },
+    ['@lsp.type.enumMember'] = { link = '@constant' },
+    ['@lsp.type.escapeSequence'] = { link = '@string.escape' },
+    ['@lsp.type.formatSpecifier'] = { link = '@punctuation.special' },
+    ['@lsp.type.generic'] = { link = '@variable' },
+    ['@lsp.type.interface'] = { link = 'Class' },
+    ['@lsp.type.keyword'] = { link = '@keyword' },
+    ['@lsp.type.lifetime'] = { link = '@storageclass' },
+    ['@lsp.type.namespace'] = { link = '@namespace' },
+    ['@lsp.type.number'] = { link = '@number' },
+    ['@lsp.type.operator'] = { link = '@operator' },
+    ['@lsp.type.parameter'] = { link = '@parameter' },
+    ['@lsp.type.property'] = { link = '@property' },
+    ['@lsp.type.selfKeyword'] = { link = '@variable.builtin' },
+    ['@lsp.type.selfTypeKeyword'] = { link = '@variable.builtin' },
+    ['@lsp.type.string'] = { link = '@string' },
+    ['@lsp.type.typeAlias'] = { link = '@type.definition' },
+    ['@lsp.type.unresolvedReference'] = { fg = c.red2, undercurl = true },
+    ['@lsp.type.variable'] = { link = '@variable' }, -- use treesitter styles for regular variables
+    ['@lsp.typemod.class.defaultLibrary'] = { link = '@type.builtin' },
+    ['@lsp.typemod.enum.defaultLibrary'] = { link = '@type.builtin' },
+    ['@lsp.typemod.enumMember.defaultLibrary'] = { link = '@constant.builtin' },
+    ['@lsp.typemod.function.defaultLibrary'] = { link = '@function.builtin' },
+    ['@lsp.typemod.keyword.async'] = { link = '@keyword.coroutine' },
+    ['@lsp.typemod.keyword.injected'] = { link = '@keyword' },
+    ['@lsp.typemod.macro.defaultLibrary'] = { link = '@function.builtin' },
+    ['@lsp.typemod.method.defaultLibrary'] = { link = '@function.builtin' },
+    ['@lsp.typemod.operator.injected'] = { link = '@operator' },
+    ['@lsp.typemod.string.injected'] = { link = '@string' },
+    ['@lsp.typemod.struct.defaultLibrary'] = { link = '@type.builtin' },
+    ['@lsp.typemod.type.defaultLibrary'] = { link = '@type.builtin' },
+    ['@lsp.typemod.typeAlias.defaultLibrary'] = { link = 'Type' },
+    ['@lsp.typemod.variable.callable'] = { link = '@function' },
+    ['@lsp.typemod.variable.defaultLibrary'] = { link = '@variable.builtin' },
+    ['@lsp.typemod.variable.injected'] = { link = '@variable' },
+    ['@lsp.typemod.variable.static'] = { link = '@constant' },
     -- NOTE: maybe add these with distinct highlights?
     -- ["@lsp.typemod.variable.globalScope"] (global variables)
 
     -- Markdown
     ['@text.title.1.markdown'] = { fg = c.green1, bold = true },
     ['@text.title.2.markdown'] = { fg = c.yellow2, bold = true },
-    ['@text.title.3.markdown'] = {  fg = c.green2, bold = true },
-    ['@text.title.4.markdown'] = {  fg = c.yellow1, bold = true },
-    ['@text.title.5.markdown'] = {  fg = c.orange, bold = true },
-    ['@text.title.6.markdown'] = {  fg = c.red1, bold = true },
+    ['@text.title.3.markdown'] = { fg = c.green2, bold = true },
+    ['@text.title.4.markdown'] = { fg = c.yellow1, bold = true },
+    ['@text.title.5.markdown'] = { fg = c.orange, bold = true },
+    ['@text.title.6.markdown'] = { fg = c.red1, bold = true },
 
     RainbowRed = { fg = c.red1 },
-    RainbowYellow = {fg = c.yellow1 },
-    RainbowBlue = {fg = c.blue1},
-    RainbowOrange = {fg = c.orange},
-    RainbowGreen = {fg = c.green1},
-    RainbowViolet = {fg = c.violet},
-    RainbowCyan = {fg = c.blue3},
+    RainbowYellow = { fg = c.yellow1 },
+    RainbowBlue = { fg = c.blue1 },
+    RainbowOrange = { fg = c.orange },
+    RainbowGreen = { fg = c.green1 },
+    RainbowViolet = { fg = c.violet },
+    RainbowCyan = { fg = c.blue3 },
 
     -- rainbow-delimiters
     RainbowDelimiterRed = { link = 'RainbowRed' },
@@ -320,19 +320,17 @@ local make_highlights = function(c)
     NeogitBranch = { fg = c.green1, bold = true },
     NeogitRemote = { fg = c.green2, bold = true },
     NeogitHunkHeader = { fg = c.blue1, bold = true },
-    NeogitHunkHeaderHighlight = {},
-    NeogitDiffContextHighlight = {},
-    NeogitDiffDeleteHighlight = { link = 'diffRemoved' },
-    NeogitDiffAddHighlight = { link = 'diffAdded' },
+    NeogitDiffAdd = { link = 'diffAdded' },
+    NeogitDiffDelete = { link = 'diffRemoved' },
+    NeoGitDiffContext = { link = 'diffChanged' },
 
     -- GitSigns
-    GitSignsAdd = { fg = c.green1 }, -- diff mode: Added line |diff.txt|
+    GitSignsAdd = { fg = c.green1 },     -- diff mode: Added line |diff.txt|
     GitSignsChange = { fg = c.yellow1 }, -- diff mode: Changed line |diff.txt|
-    GitSignsDelete = { fg = c.red1 }, -- diff mode: Deleted line |diff.txt|
+    GitSignsDelete = { fg = c.red1 },    -- diff mode: Deleted line |diff.txt|
 
     -- Telescope
     TelescopeBorder = { fg = c.grey },
-    TelescopeNormal = { link = 'Normal' },
     TelescopeSelection = { link = 'CursorLine' },
 
     -- NvimTree
@@ -496,7 +494,12 @@ local apply_highlights = function(highlights)
 end
 
 M.apply_colors = function(colors)
-  vim.opt.termguicolors = true
+  if vim.g.colors_name then
+    vim.cmd.highlight 'clear'
+  end
+  vim.o.termguicolors = true
+  vim.g.colors_name = 'meadow'
+
   local highlights = make_highlights(colors)
   apply_highlights(highlights)
 end
