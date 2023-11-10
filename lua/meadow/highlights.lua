@@ -194,7 +194,7 @@ local make_highlights = function(c)
 
     --- Functions
     ['@constructor'] = { fg = c.green2, bold = true },  -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
-    ['@parameter'] = { fg = c.yellow1, italic = true }, -- For parameters of a function.
+    ['@parameter'] = { fg = c.yellow2, italic = true }, -- For parameters of a function.
     ['@parameter.builtin'] = { link = '@parameter' },   -- For builtin parameters of a function, e.g. "..." or Smali's p[1-99]
 
     --- Keywords
@@ -259,6 +259,7 @@ local make_highlights = function(c)
     ['@lsp.type.selfTypeKeyword'] = { link = '@variable.builtin' },
     ['@lsp.type.string'] = { link = '@string' },
     ['@lsp.type.typeAlias'] = { link = '@type.definition' },
+    ['@lsp.type.typeParameter'] = { link = '@lsp.type.generic' },
     ['@lsp.type.unresolvedReference'] = { fg = c.red2, undercurl = true },
     ['@lsp.type.variable'] = { link = '@variable' }, -- use treesitter styles for regular variables
     ['@lsp.typemod.class.defaultLibrary'] = { link = '@type.builtin' },
