@@ -12,10 +12,10 @@ local make_highlights = function(c)
     CursorColumn = { link = 'ColorColumn' }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
     CursorLine = { link = 'CursorColumn' },  -- Screen-line at the cursor, when 'cursorline' is set.  Low-priority if foreground (ctermfg OR guifg) is not set.
     Directory = { fg = c.blue1 },            -- directory names (and other special names in listings)
-    DiffAdd = { fg = c.green2 },             -- diff mode: Added line |diff.txt|
-    DiffChange = { fg = c.yellow1 },         -- diff mode: Changed line |diff.txt|
-    DiffDelete = { fg = c.red1 },            -- d:f mode: Deleted line |diff.txt|
-    DiffText = { fg = c.yellow1 },           -- diff mode: Changed text within a changed line |diff.txt|
+    DiffAdd = { bg = c.green2 },             -- diff mode: Added line |diff.txt|
+    DiffChange = { bg = c.yellow2 },        -- diff mode: Changed line |diff.txt|
+    DiffDelete = { bg = c.red2 },            -- d:f mode: Deleted line |diff.txt|
+    DiffText = { bg = c.orange },           -- diff mode: Changed text within a changed line |diff.txt|
     EndOfBuffer = { link = 'Normal' },       -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
     -- TermCursor  = {}, -- cursor in a focused terminal
     -- TermCursorNC= {}, -- cursor in an unfocused terminal
@@ -320,10 +320,20 @@ local make_highlights = function(c)
     -- Neogit
     NeogitBranch = { fg = c.green1, bold = true },
     NeogitRemote = { fg = c.green2, bold = true },
+
     NeogitHunkHeader = { fg = c.blue1, bold = true },
-    NeogitDiffAdd = { link = 'diffAdded' },
-    NeogitDiffDelete = { link = 'diffRemoved' },
-    NeoGitDiffContext = { link = 'diffChanged' },
+    NeogitDiffAdd = { fg = c.white, bg = c.green1 },
+    NeogitDiffDelete = { fg = c.white, bg = c.red1 },
+    NeogitDiffContext = { bg = c.black3 },
+    NeogitDiffHeader = { bg = c.blue3 },
+
+    NeogitHunkHeaderHighlight = { fg = c.blue1, bg = c.grey_bg2 },
+    NeogitDiffContextHighlight = { link = 'NeogitDiffContext' },
+    NeogitDiffAddHighlight = { link = 'NeogitDiffAdd' },
+    NeogitDiffDeleteHighlight = { link = 'NeogitDiffDelete' },
+    NeogitDiffHeaderHighlight = { link = 'NeogitDiffHeader' },
+
+    NeogitCursorLine = { bg = c.grey_bg2 },
 
     -- GitSigns
     GitSignsAdd = { fg = c.green1 },     -- diff mode: Added line |diff.txt|
