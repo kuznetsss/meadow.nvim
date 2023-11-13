@@ -13,9 +13,9 @@ local make_highlights = function(c)
     CursorLine = { link = 'CursorColumn' },  -- Screen-line at the cursor, when 'cursorline' is set.  Low-priority if foreground (ctermfg OR guifg) is not set.
     Directory = { fg = c.blue1 },            -- directory names (and other special names in listings)
     DiffAdd = { bg = c.green2 },             -- diff mode: Added line |diff.txt|
-    DiffChange = { bg = c.yellow2 },        -- diff mode: Changed line |diff.txt|
+    DiffChange = { bg = c.yellow2 },         -- diff mode: Changed line |diff.txt|
     DiffDelete = { bg = c.red2 },            -- d:f mode: Deleted line |diff.txt|
-    DiffText = { bg = c.orange },           -- diff mode: Changed text within a changed line |diff.txt|
+    DiffText = { bg = c.orange },            -- diff mode: Changed text within a changed line |diff.txt|
     EndOfBuffer = { link = 'Normal' },       -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
     -- TermCursor  = {}, -- cursor in a focused terminal
     -- TermCursorNC= {}, -- cursor in an unfocused terminal
@@ -32,15 +32,15 @@ local make_highlights = function(c)
     MatchParen = { bg = c.yellow1, bold = true },                  -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     ModeMsg = { link = 'Normal' },                                 -- 'showmode' message (e.g., "-- INSERT -- ")
     MsgArea = { link = 'Normal' },                                 -- Area for messages and cmdline
-    -- MsgSeparator= {}, -- Separator for scrolled messages, `msgsep` flag of 'display'
+    MsgSeparator = { link = 'LineNr' },                            -- Separator for scrolled messages, `msgsep` flag of 'display'
     MoreMsg = { fg = c.green2 },                                   -- |more-prompt|
     NonText = { fg = c.grey },                                     -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     Normal = { fg = c.white, bg = c.black3 },                      -- normal text
     NormalNC = { link = 'Normal' },                                -- normal text in non-current windows
     NormalSB = { link = 'Normal' },                                -- normal text in sidebar
-    NormalFloat = { fg = c.white, bg = c.black4 },                 -- Normal text in floating windows.
-    FloatBorder = { fg = c.grey, bg = c.black4 },
-    FloatTitle = { fg = c.green2, bg = c.black4, bold = true },
+    NormalFloat = { link = 'Normal' },                             -- Normal text in floating windows.
+    FloatBorder = { fg = c.grey },
+    FloatTitle = { link = 'Title' },
     Pmenu = { fg = c.white, bg = c.grey_bg1 },                  -- Popup menu: normal item. menu
     PmenuSel = { fg = c.green2, bg = c.grey_bg2, bold = true }, -- Popup menu: selected item.
     PmenuSbar = { bg = c.grey_bg2 },                            -- Popup menu: scrollbar.
@@ -334,6 +334,10 @@ local make_highlights = function(c)
     NeogitDiffHeaderHighlight = { link = 'NeogitDiffHeader' },
 
     NeogitCursorLine = { bg = c.grey_bg2 },
+
+    -- ChatGPT.nvim
+    ChatGPTQuestion = { fg = c.green1 },
+    ChatGPTWelcome = { fg = c.green2 },
 
     -- GitSigns
     GitSignsAdd = { fg = c.green1 },     -- diff mode: Added line |diff.txt|
