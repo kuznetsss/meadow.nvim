@@ -343,6 +343,7 @@ local make_highlights = function(c)
     -- Telescope
     TelescopeBorder = { fg = c.grey },
     TelescopeSelection = { link = 'CursorLine' },
+    TelescopeMatching = { fg = c.green2 },
 
     -- NvimTree
     -- NvimTreeNormal = {},
