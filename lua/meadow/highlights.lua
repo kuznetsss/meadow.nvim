@@ -190,7 +190,7 @@ local make_highlights = function(c)
     --- Literals
     ['@string.documentation'] = { link = 'Comment' },
     ['@string.regex'] = {},                 -- For regexes.
-    ['@string.escape'] = { bg = c.green2 }, -- For escape characters within a string.
+    ['@string.escape'] = { link = 'Special' }, -- For escape characters within a string.
 
     --- Functions
     ['@constructor'] = { fg = c.green2, bold = true },  -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
