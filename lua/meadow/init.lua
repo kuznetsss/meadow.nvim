@@ -3,7 +3,7 @@ local M = {}
 local options = require 'meadow.options'
 
 local define_commands = function()
-  vim.api.nvim_create_user_command('MedowChangeBrightness', function(args)
+  vim.api.nvim_create_user_command('MeadowChangeBrightness', function(args)
     local change = tonumber(args.args)
     local new_value = options.current_options.color_value + change
     options.update_options { color_value = new_value }
@@ -11,7 +11,7 @@ local define_commands = function()
     M.activate()
   end, { nargs = 1 })
 
-  vim.api.nvim_create_user_command('MedowChangeContrast', function(args)
+  vim.api.nvim_create_user_command('MeadowChangeContrast', function(args)
     local change = tonumber(args.args)
     local new_value = options.current_options.color_saturation + change
     options.update_options { color_saturation = new_value }
