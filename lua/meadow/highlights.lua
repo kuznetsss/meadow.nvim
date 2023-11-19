@@ -196,6 +196,7 @@ local make_highlights = function(c)
     ['@constructor'] = { fg = c.green2, bold = true },  -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
     ['@parameter'] = { fg = c.yellow1, italic = true }, -- For parameters of a function.
     ['@parameter.builtin'] = { link = '@parameter' },   -- For builtin parameters of a function, e.g. "..." or Smali's p[1-99]
+    ['@function.builtin'] = { link = '@function' },
 
     --- Keywords
     ['@keyword'] = { fg = c.blue3 }, -- For keywords that don't fall in previous categories.
