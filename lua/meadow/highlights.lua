@@ -64,7 +64,7 @@ local make_highlights = function(c)
     Visual = { bg = c.violet },                                 -- Visual mode selection
     VisualNOS = { link = 'Visual' },                            -- Visual mode selection when vim is "Not Owning the Selection".
     WarningMsg = { bg = c.yellow1 },                            -- warning messages
-    Whitespace = { fg = c.white, bg = c.orange },               -- "nbsp", "space", "tab" and "trail" in 'listchars'
+    Whitespace = { link = 'Normal' },                           -- "nbsp", "space", "tab" and "trail" in 'listchars'
     WildMenu = { link = 'PmenuSel' },                           -- current match in 'wildmenu' completion
 
     -- These groups are not listed as default vim groups,
@@ -189,7 +189,7 @@ local make_highlights = function(c)
 
     --- Literals
     ['@string.documentation'] = { link = 'Comment' },
-    ['@string.regex'] = {},                 -- For regexes.
+    ['@string.regex'] = {},                    -- For regexes.
     ['@string.escape'] = { link = 'Special' }, -- For escape characters within a string.
 
     --- Functions
@@ -350,43 +350,6 @@ local make_highlights = function(c)
     TelescopeSelection = { link = 'CursorLine' },
     TelescopeMatching = { fg = c.green2 },
 
-    -- NvimTree
-    -- NvimTreeNormal = {},
-    -- NvimTreeWinSeparator = {},
-    -- NvimTreeNormalNC = {},
-    -- NvimTreeRootFolder = {},
-    -- NvimTreeGitDirty = {},
-    -- NvimTreeGitNew = {},
-    -- NvimTreeGitDeleted = {},
-    -- NvimTreeOpenedFile = {},
-    -- NvimTreeSpecialFile = {},
-    -- NvimTreeIndentMarker = {},
-    -- NvimTreeImageFile = {},
-    -- NvimTreeSymlink = {},
-    -- NvimTreeFolderIcon = {},
-    -- NvimTreeFolderName= {},
-
-    -- Alpha
-    -- AlphaShortcut = {},
-    -- AlphaHeader = {},
-    -- AlphaHeaderLabel = {},
-    -- AlphaFooter = {},
-    -- AlphaButtons = {},
-
-    -- WhichKey
-    -- WhichKey = {},
-    -- WhichKeyGroup = {},
-    -- WhichKeyDesc = {},
-    -- WhichKeySeperator = {},
-    -- WhichKeySeparator = {},
-    -- WhichKeyFloat = {},
-    -- WhichKeyValue = {},
-
-    -- NeoVim
-    -- healthError = {},
-    -- healthSuccess = {},
-    -- healthWarning = {},
-
     -- Cmp
     CmpDocumentation = {},
     CmpDocumentationBorder = { fg = c.grey },
@@ -420,7 +383,7 @@ local make_highlights = function(c)
     CmpItemKindEvent = { link = 'Type' },
     CmpItemKindEnum = { link = 'Type' },
     CmpItemKindUnit = { link = 'PreProc' },
-    CmpItemKindModule = {link = 'PreProc'},
+    CmpItemKindModule = { link = 'PreProc' },
 
     CmpItemKindProperty = { link = '@property' },
     CmpItemKindField = { link = '@field' },
@@ -429,46 +392,12 @@ local make_highlights = function(c)
     CmpItemKindOperator = { link = '@operator' },
     CmpItemKindSnippet = { fg = c.blue1 },
 
-    -- Lazy
-    LazyProgressDone = {},
-    LazyProgressTodo = {},
-
     -- Noice
-    NoiceCompletionItemKindDefault = {},
 
-    NoiceCompletionItemKindKeyword = {},
-
-    NoiceCompletionItemKindVariable = {},
-    NoiceCompletionItemKindConstant = {},
-    NoiceCompletionItemKindReference = {},
-    NoiceCompletionItemKindValue = {},
-
-    NoiceCompletionItemKindFunction = {},
-    NoiceCompletionItemKindMethod = {},
-    NoiceCompletionItemKindConstructor = {},
-
-    NoiceCompletionItemKindClass = {},
-    NoiceCompletionItemKindInterface = {},
-    NoiceCompletionItemKindStruct = {},
-    NoiceCompletionItemKindEvent = {},
-    NoiceCompletionItemKindEnum = {},
-    NoiceCompletionItemKindUnit = {},
-
-    NoiceCompletionItemKindModule = {},
-
-    NoiceCompletionItemKindProperty = {},
-    NoiceCompletionItemKindField = {},
-    NoiceCompletionItemKindTypeParameter = {},
-    NoiceCompletionItemKindEnumMember = {},
-    NoiceCompletionItemKindOperator = {},
-    NoiceCompletionItemKindSnippet = {},
-
-    TreesitterContext = {},
-    IblWhitespace = { fg = c.grey_bg1 },
+    -- Indent-blank line
     IblIndent = { fg = c.grey_bg1 },
     IblScope = { link = 'Comment' },
     Hlargs = {},
-    -- TreesitterContext = {},
   }
 
   if not vim.diagnostic then
