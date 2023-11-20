@@ -38,7 +38,7 @@ local make_highlights = function(c)
     Normal = { fg = c.white, bg = c.black3 },                      -- normal text
     NormalNC = { link = 'Normal' },                                -- normal text in non-current windows
     NormalSB = { link = 'Normal' },                                -- normal text in sidebar
-    NormalFloat = { link = 'Normal' },                             -- Normal text in floating windows.
+    NormalFloat = { fg = c.white, bg = c.grey_bg1 },                             -- Normal text in floating windows.
     FloatBorder = { fg = c.grey },
     FloatTitle = { link = 'Title' },
     Pmenu = { fg = c.white, bg = c.grey_bg1 },                  -- Popup menu: normal item. menu
