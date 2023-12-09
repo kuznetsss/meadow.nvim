@@ -6,7 +6,7 @@ I wanted to have a colorscheme with a lot of green and yellow color.
 This colorschemes is inspired by [QtCreator](https://www.qt.io/product/development-tools)'s default colorscheme.
 
 ## 🖥️ Screenshots
-![Lua code](https://private-user-images.githubusercontent.com/15742918/289275710-b755f65c-e2ce-4290-9ffc-38fd4af55a79.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIxMzA2MTgsIm5iZiI6MTcwMjEzMDMxOCwicGF0aCI6Ii8xNTc0MjkxOC8yODkyNzU3MTAtYjc1NWY2NWMtZTJjZS00MjkwLTlmZmMtMzhmZDRhZjU1YTc5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzEyMDklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMjA5VDEzNTgzOFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTgzZDk5NGVkN2NlZjk1NjBlOWFmODE5ZmExMzBlMmM0YjExZGVkNWFhNGUwYjY5ODNlNTBjNWE3M2UxNWYxM2EmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.acELPprEKqWgVmWZPAJhoOV8vQYKdpRpsnXuGQtoPIo)
+![Lua code](https://github.com/kuznetsss/meadow.nvim/assets/15742918/b755f65c-e2ce-4290-9ffc-38fd4af55a79)
 
 ## 📦 Installation
 Same as any other plugin, e.g. using lazy:
