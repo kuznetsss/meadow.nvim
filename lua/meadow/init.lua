@@ -2,6 +2,20 @@ local M = {}
 
 local options = require 'meadow.options'
 
+M.change_brightness = function(diff)
+    local new_value = options.current_options.color_value + diff
+    options.update_options { color_value = new_value }
+    vim.notify(vim.inspect(options.current_options), vim.log.levels.INFO, { title = 'Meadow' })
+    vim.cmd.colorscheme 'meadow'
+end
+
+M.change_contrast = function(diff)
+    local new_value = options.current_options.color_saturation + diff
+    options.update_options { color_saturation = new_value }
+    vim.notify(vim.inspect(options.current_options), vim.log.levels.INFO, { title = 'Meadow' })
+    vim.cmd.colorscheme 'meadow'
+end
+
 local define_commands = function()
   vim.api.nvim_create_user_command('MeadowChangeBrightness', function(args)
     local change = tonumber(args.args)
