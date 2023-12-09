@@ -1,7 +1,7 @@
 local M = {}
 
 local make_highlights = function(c)
-  -- The list of higlights and comments are taken from https://github.com/folke/tokyonight.nvim
+  -- The list of higlights and comments were originally taken from https://github.com/folke/tokyonight.nvim and then modified.
   local highlights = {
     Comment = { fg = c.grey },               -- any comment
     ColorColumn = { bg = c.grey_bg1 },       -- used for the columns set with 'colorcolumn'
