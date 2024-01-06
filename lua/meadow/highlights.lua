@@ -154,7 +154,7 @@ local make_highlights = function(c)
     DiagnosticError = { fg = c.red1 },                         -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticWarn = { fg = c.orange },                        -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticInfo = { fg = c.blue1 },                         -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-    DiagnosticHint = { fg = c.blue2 },                         -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+    DiagnosticHint = { undercurl = true },                         -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticUnnecessary = { fg = c.grey },                   -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 
     DiagnosticVirtualTextError = { link = 'DiagnosticError' }, -- Used for "Error" diagnostic virtual text
