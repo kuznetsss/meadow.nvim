@@ -51,7 +51,7 @@ local make_highlights = function(c)
     IncSearch = { link = 'Search' },                            -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
     CurSearch = {},
     SpecialKey = { fg = c.grey },                               -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
-    SpellBad = { underline = true },                            -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
+    SpellBad = { undercurl = true },                            -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
     SpellCap = { link = 'SpellBad' },                           -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     SpellLocal = { link = 'SpellBad' },                         -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     SpellRare = { link = 'SpellBad' },                          -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
