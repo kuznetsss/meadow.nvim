@@ -51,7 +51,7 @@ local make_highlights = function(c)
     IncSearch = { link = 'Search' },                            -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
     CurSearch = {},
     SpecialKey = { fg = c.grey },                               -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
-    SpellBad = { undercurl = true },                            -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
+    SpellBad = { underline = true },                            -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
     SpellCap = { link = 'SpellBad' },                           -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     SpellLocal = { link = 'SpellBad' },                         -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     SpellRare = { link = 'SpellBad' },                          -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
@@ -154,7 +154,7 @@ local make_highlights = function(c)
     DiagnosticError = { fg = c.red1 },                         -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticWarn = { fg = c.orange },                        -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticInfo = { fg = c.blue1 },                         -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-    DiagnosticHint = { undercurl = true },                         -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+    DiagnosticHint = { fg = c.white },                         -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticUnnecessary = { fg = c.grey },                   -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 
     DiagnosticVirtualTextError = { link = 'DiagnosticError' }, -- Used for "Error" diagnostic virtual text
@@ -162,10 +162,10 @@ local make_highlights = function(c)
     DiagnosticVirtualTextInfo = { link = 'DiagnosticInfo' },   -- Used for "Information" diagnostic virtual text
     DiagnosticVirtualTextHint = { link = 'DiagnosticHint' },   -- Used for "Hint" diagnostic virtual text
 
-    DiagnosticUnderlineError = { link = 'DiagnosticError' },   -- Used to underline "Error" diagnostics
-    DiagnosticUnderlineWarn = { link = 'DiagnosticWarn' },     -- Used to underline "Warning" diagnostics
-    DiagnosticUnderlineInfo = { link = 'DiagnosticInfo' },     -- Used to underline "Information" diagnostics
-    DiagnosticUnderlineHint = { link = 'DiagnosticHint' },     -- Used to underline "Hint" diagnostics
+    DiagnosticUnderlineError = { sp = c.red1, undercurl = true },   -- Used to underline "Error" diagnostics
+    DiagnosticUnderlineWarn = { sp = c.orange, undercurl = true },     -- Used to underline "Warning" diagnostics
+    DiagnosticUnderlineInfo = { sp = c.blue1, undercurl = true },     -- Used to underline "Information" diagnostics
+    DiagnosticUnderlineHint = { sp = c.white, undercurl = true },     -- Used to underline "Hint" diagnostics
 
     LspSignatureActiveParameter = { bg = c.green2, bold = true },
     LspCodeLens = { fg = c.grey, bg = c.yellow2 },
@@ -422,6 +422,9 @@ end
 local unwrapOptions = function(options)
   if type(options.fg) == 'table' then
     options.fg = options.fg.fg
+  end
+  if type(options.sp) == 'table' then
+    options.sp = options.sp.fg
   end
   if type(options.bg) == 'table' then
     options.bg = options.bg.bg
