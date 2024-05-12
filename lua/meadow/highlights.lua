@@ -177,8 +177,13 @@ local make_highlights = function(c)
     -- As of writing, tree-sitter support is a WIP, group names may change.
 
     --- Misc
-    -- TODO:
-    -- ["@comment.documentation"] = {},
+    ['@comment'] = { link = 'Comment' },
+    ["@comment.documentation"] = {},
+    ['@comment.error'] = { fg = c.red1, bold = true },  -- error-type comments (e.g. `ERROR`, `FIXME`, `DEPRECATED`)
+    ['@comment.warning'] = { fg = c.yellow1, bold = true},  -- warning-type comments (e.g. `WARNING`, `FIX`, `HACK`)
+    ['@comment.todo'] = { fg = c.yellow1, bold = true },  -- todo-type comments (e.g. `TODO`, `WIP`)
+    ['@comment.note'] = { fg = c.blue2, bold = true },  -- note-type comments (e.g. `NOTE`, `INFO`, `XXX`)
+
     ['@operator'] = { link = 'Operator' }, -- For any operator: `+`, but also `->` and `*` in C.
 
     --- Punctuation
@@ -188,9 +193,17 @@ local make_highlights = function(c)
     ['@punctuation.special.markdown'] = { link = 'Special' },
 
     --- Literals
+    ['@string'] = { link = 'String' },
     ['@string.documentation'] = { link = 'Comment' },
-    ['@string.regex'] = {},                    -- For regexes.
+    ['@string.regex'] = { link = 'Special' },  -- For regexes.
     ['@string.escape'] = { link = 'Special' }, -- For escape characters within a string.
+    ['@string.special'] = { link = 'Special' },  -- For regexes.
+
+    ['@character'] = { link = 'String' },
+    ['@character.special'] = { link = 'Special' },
+
+    ['@boolean'] = { link = 'Boolean'},
+    ['@number'] = { link = 'Number' },
 
     --- Functions
     ['@constructor'] = { fg = c.green2, bold = true },  -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
@@ -200,21 +213,61 @@ local make_highlights = function(c)
 
     --- Keywords
     ['@keyword'] = { fg = c.blue3 }, -- For keywords that don't fall in previous categories.
-    -- TODO:
-    -- ["@keyword.coroutine"] = {}, -- For keywords related to coroutines.
-    ['@keyword.function'] = { link = '@keyword' }, -- For keywords used to define a fuction.
+    ["@keyword.coroutine"] = { link = '@keyword'}, -- For keywords related to coroutines.
+    ['@keyword.function'] = { link = '@keyword' }, -- For keywords used to define a function.
 
     ['@label'] = { link = 'Statement' },           -- For labels: `label:` in C and `:label:` in Lua.
 
     --- Types
-    ['@type.builtin'] = { fg = c.green1 },
+    ['@type'] = { fg = c.green1 },
+    ['@type.builtin'] = { link = '@type' },
+    ['@type.definition'] = { link = 'Variable' },
     ['@field'] = { link = 'Identifier', italic = true }, -- For fields.
+    ['@attribute'] = { link = '@variable' },
     ['@property'] = { link = '@field' },
 
     --- Identifiers
     ['@variable'] = { fg = c.white },           -- Any variable name that does not have another highlight.
     ['@variable.builtin'] = { fg = c.yellow1 }, -- Variable names that are defined by the languages, like `this` or `self`.
+    ['@variable.parameter'] = { link = '@parameter' },
+    ['@variable.parameter.builtin'] = { link = '@parameter.builtin' },
+    ['@variable.member'] = { link = '@field' },
 
+    ['@constant'] = { link = 'Constant' }, -- constant identifiers
+    ['@constant.builtin'] = { link = 'Constant' }, -- built-in constant values
+    ['@constant.macro'] = { link = 'Macro' }, -- constants defined by the preprocessor
+
+    ['@module'] = { link = '@namespace' },
+    ['@module.builtin'] = { link = '@namespace' },
+
+    -- Markup
+    ['@markup.strong'] = { bold = true },  -- bold text
+    ['@markup.italic'] = { italic = true },  -- italic text
+    ['@markup.strikethrough'] = { strikethrough = true },  -- struck-through text
+    ['@markup.underline'] = { underline = true },  -- underlined text (only for literal underline markup!)
+
+    ['@markup.heading'] = { fg = c.green1, bold = true },
+    ['@markup.heading.1'] = { fg = c.green1, bold = true },
+    ['@markup.heading.2'] = { fg = c.yellow2, bold = true },
+    ['@markup.heading.3'] = { fg = c.green2, bold = true },
+    ['@markup.heading.4'] = { fg = c.yellow1, bold = true },
+    ['@markup.heading.5'] = { fg = c.orange, bold = true },
+    ['@markup.heading.6'] = { fg = c.red1, bold = true },
+
+    ['@markup.quote'] = { fg = c.yellow1 },  -- block quotes
+    ['@markup.math'] = { fg = c.blue2 },  -- math environments (e.g. `$ ... $` in LaTeX)
+
+    ['@markup.link'] = { link = 'Link'},  -- text references, footnotes, citations, etc.
+    ['@markup.link.label'] = { fg = c.blue2 },  -- link, reference descriptions
+    ['@markup.link.url'] = {fg = c.blue1, underline = true },  -- URL-style links
+
+    ['@markup.raw'] = { fg = c.green1 },  -- literal or verbatim text (e.g. inline code)
+    ['@markup.raw.block'] = { fg = c.green1 },  -- literal or verbatim text as a stand-alone block
+                           -- (use priority 90 for blocks with injections)
+
+    ['@markup.list'] = { fg = c.green2 },  -- list markers
+    ['@markup.list.checked'] = { fg = c.green2 },  -- checked todo-style list markers
+    ['@markup.list.unchecked'] = { fg = c.yellow1 },  -- unchecked todo-style list markers
     --- Text
     -- ["@text.literal.markdown"] = {},
     ['@text.literal.markdown_inline'] = {},
