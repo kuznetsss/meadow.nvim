@@ -265,9 +265,9 @@ local make_highlights = function(c)
     ['@markup.raw.block'] = { fg = c.green1 },  -- literal or verbatim text as a stand-alone block
                            -- (use priority 90 for blocks with injections)
 
-    ['@markup.list'] = { fg = c.green2 },  -- list markers
-    ['@markup.list.checked'] = { fg = c.green2 },  -- checked todo-style list markers
-    ['@markup.list.unchecked'] = { fg = c.yellow1 },  -- unchecked todo-style list markers
+    ['@markup.list'] = { fg = c.green2, bold = true },  -- list markers
+    ['@markup.list.checked'] = { fg = c.green2, bold = true },  -- checked todo-style list markers
+    ['@markup.list.unchecked'] = { fg = c.yellow1, bold = true },  -- unchecked todo-style list markers
     --- Text
     -- ["@text.literal.markdown"] = {},
     ['@text.literal.markdown_inline'] = {},
