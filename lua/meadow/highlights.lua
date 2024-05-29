@@ -5,7 +5,7 @@ local make_highlights = function(c)
   local highlights = {
     Comment = { fg = c.grey },               -- any comment
     ColorColumn = { bg = c.grey_bg1 },       -- used for the columns set with 'colorcolumn'
-    Conceal = { fg = c.white, bg = c.grey }, -- placeholder characters substituted for concealed text (see 'conceallevel')
+    Conceal = { fg = c.white }, -- placeholder characters substituted for concealed text (see 'conceallevel')
     Cursor = { reverse = true },             -- character under the cursor
     lCursor = { link = 'Cursor' },           -- the character under the cursor when |language-mapping| is used (see 'guicursor')
     CursorIM = { link = 'Cursor' },          -- like Cursor, but used when in IME mode |CursorIM|
