@@ -56,7 +56,7 @@ local make_highlights = function(c)
     SpellLocal = { link = 'SpellBad' },                         -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     SpellRare = { link = 'SpellBad' },                          -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
     StatusLine = { fg = c.white, bg = c.black2 },               -- status line of current window
-    StatusLineNC = { fg = c.grey_bg1, bg = c.black2 },          -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+    StatusLineNC = { fg = c.grey, bg = c.black2 },          -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
     TabLine = { fg = c.white, bg = c.black4 },                  -- tab pages line, not active tab page label
     TabLineFill = { fg = c.green2, bg = c.black4 },             -- tab pages line, where there are no labels
     TabLineSel = { fg = c.green2, bold = true },                -- tab pages line, active tab page label
