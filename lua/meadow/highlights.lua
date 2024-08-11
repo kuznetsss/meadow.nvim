@@ -9,7 +9,7 @@ local make_highlights = function(c)
     Cursor = { reverse = true },             -- character under the cursor
     lCursor = { link = 'Cursor' },           -- the character under the cursor when |language-mapping| is used (see 'guicursor')
     CursorIM = { link = 'Cursor' },          -- like Cursor, but used when in IME mode |CursorIM|
-    CursorColumn = { link = 'ColorColumn' }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
+    CursorColumn = { bg = c.grey_bg1 }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
     CursorLine = { link = 'CursorColumn' },  -- Screen-line at the cursor, when 'cursorline' is set.  Low-priority if foreground (ctermfg OR guifg) is not set.
     Directory = { fg = c.blue1 },            -- directory names (and other special names in listings)
     DiffAdd = { bg = c.green2 },             -- diff mode: Added line |diff.txt|
