@@ -451,6 +451,9 @@ local make_highlights = function(c)
     IblIndent = { fg = c.grey_bg1 },
     IblScope = { link = 'Comment' },
     Hlargs = {},
+
+    -- Snacks
+    SnacksPickerListCursorLine = { link = 'CursorColumn' },
   }
 
   if not vim.diagnostic then
